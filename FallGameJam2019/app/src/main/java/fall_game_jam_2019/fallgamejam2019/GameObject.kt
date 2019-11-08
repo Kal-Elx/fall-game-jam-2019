@@ -33,4 +33,6 @@ abstract class GameObject(var image: Bitmap) {
      * update properties for the game object
      */
     abstract fun update()
+
+    abstract fun updateTouch(touch_x: Int, touch_y: Int)
 }

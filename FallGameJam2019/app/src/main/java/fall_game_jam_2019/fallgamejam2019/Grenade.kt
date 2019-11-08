@@ -27,4 +27,8 @@ class Grenade(var img: Bitmap) : GameObject(img) {
         x += (xVelocity)
         y += (yVelocity)
     }
+
+    override fun updateTouch(touch_x: Int, touch_y: Int) {
+        // Do nothing
+    }
 }
