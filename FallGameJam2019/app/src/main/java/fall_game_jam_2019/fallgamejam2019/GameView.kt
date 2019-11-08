@@ -1,6 +1,7 @@
 package fall_game_jam_2019.fallgamejam2019
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.SurfaceHolder
@@ -9,6 +10,7 @@ import java.lang.Exception
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
+    private var grenade: Grenade? = null
 
     init {
         holder.addCallback(this)
@@ -31,6 +33,10 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun surfaceCreated(p0: SurfaceHolder?) {
+        // game objects
+        grenade = Grenade(BitmapFactory.decodeResource(resources, R.drawable.grenade))
+
+        // start game thread
         thread.setRunning(true)
         thread.start()
     }
@@ -43,7 +49,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
      * Function to update the positions of player and game objects
      */
     fun update() {
-
+        grenade!!.update()
     }
 
     /**
@@ -51,6 +57,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
      */
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
+
+        grenade!!.draw(canvas)
     }
 
 }
