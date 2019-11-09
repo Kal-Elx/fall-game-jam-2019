@@ -28,8 +28,6 @@ fun cicle_intersects_rectangle(circle: GameObject, rectangle: GameObject): Boole
 }
 
 
-
-
 /*
 fun hasCollided(other:GameObject): Boolean{
     if(other.hitBoxType == HitBoxType.RECTANGLE && this.hitBoxType == HitBoxType.RECTANGLE){

@@ -76,8 +76,6 @@ abstract class GameObject(var image: Bitmap, val mass: Double) {
         return touched
     }
 
-
-
     /**
      * Draws the object on to the canvas.
      */
