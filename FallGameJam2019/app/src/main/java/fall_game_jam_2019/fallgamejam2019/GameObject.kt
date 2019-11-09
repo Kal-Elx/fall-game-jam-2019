@@ -4,6 +4,8 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import kotlin.math.abs
+import java.lang.Math.pow
+import kotlin.math.sqrt
 
 enum class HitBoxType {
     CIRCLE, RECTANGLE
@@ -14,10 +16,6 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
     var y: Int = 0
     var w: Int = 0
     var h: Int = 0
-    val m = mass
-
-    //protected val hitBoxType: HitBoxType =hitBoxType
-
 
     protected var xVelocity: Double = 20.0
     protected var yVelocity: Double = 20.0
@@ -27,7 +25,10 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
     protected val screenWidth = Resources.getSystem().displayMetrics.widthPixels
     protected val screenHeight = Resources.getSystem().displayMetrics.heightPixels
 
-    val touchOffset = 100
+    private val touchOffset = 200
+    private var held = false
+    private var holdDiffX = 0
+    private var holdDiffY = 0
 
     init {
         w = image.width
@@ -64,9 +65,15 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
         y += yVelocity.toInt()
     }
 
-    fun updateTouch(touch_x: Int, touch_y: Int) {
-        x = touch_x - w / 2
-        y = touch_y - h / 2
+    fun updateTouch(touchX: Int, touchY: Int) {
+        if (held) {
+            x = (touchX) + holdDiffX
+            y = (touchY) + holdDiffY
+        } else {
+            held = true
+            holdDiffX = x - (touchX)
+            holdDiffY = y - (touchY)
+        }
 
         newXVelocity = 0.0
         newYVelocity = 0.0
@@ -75,6 +82,16 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
     fun onCollision(other: GameObject){
         newXVelocity = ((this.mass-other.mass)/ (this.mass + other.mass))* this.xVelocity + ((2*other.mass)/(this.mass+other.mass))*other.xVelocity
         newYVelocity = ((this.mass-other.mass)/ (this.mass + other.mass))* this.yVelocity + ((2*other.mass)/(this.mass+other.mass))*other.yVelocity
+    }
+
+    fun touched(touchX: Int, touchY: Int): Boolean {
+        val touched = sqrt(
+            (pow((x - touchX).toDouble(), 2.0) + pow(
+                (y - touchY).toDouble(),
+                2.0
+            ))
+        ) < touchOffset
+        return touched
     }
 
     fun hasCollided(other:GameObject): Boolean{
@@ -104,15 +121,11 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
         return false
     }
 
-    fun touched(touch_x: Int, touch_y: Int): Boolean {
-        return touch_x >= x-touchOffset && touch_x <= (x+w+touchOffset) && touch_y >= y-touchOffset && touch_y <= (y+h+touchOffset)
-    }
-
     /**
      * Draws the object on to the canvas.
      */
     fun draw(canvas: Canvas) {
-        canvas.drawBitmap(image, x.toFloat(), y.toFloat(), null)
+        canvas.drawBitmap(image, (x-w/2).toFloat(), (y-h/2).toFloat(), null)
     }
 
     fun applyGravity() {
@@ -122,5 +135,11 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
     fun applyAirResistance() {
         newXVelocity *= 0.99
         newYVelocity *= 0.99
+    }
+
+    fun setHeld(b: Boolean) {
+        held = b
+        holdDiffX = 0
+        holdDiffY = 0
     }
 }
