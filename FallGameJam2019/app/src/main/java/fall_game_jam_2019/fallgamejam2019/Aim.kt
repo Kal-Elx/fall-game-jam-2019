@@ -5,6 +5,9 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
+import android.graphics.DashPathEffect
+
+
 
 class Aim {
     var x = 0
@@ -20,8 +23,9 @@ class Aim {
     fun draw(canvas: Canvas) {
         val paint = Paint()
         paint.setColor(Color.parseColor("#FFFFFF"))
-        paint.setStrokeWidth(30F)
+        paint.setStrokeWidth(10F)
         paint.setStyle(Paint.Style.STROKE)
+        paint.setPathEffect(DashPathEffect(floatArrayOf(100f, 50f), 0f))
         paint.setAntiAlias(true)
         paint.setDither(true)
         canvas.drawLine(orgX.toFloat(), orgY.toFloat(), x.toFloat(), y.toFloat(), paint)
