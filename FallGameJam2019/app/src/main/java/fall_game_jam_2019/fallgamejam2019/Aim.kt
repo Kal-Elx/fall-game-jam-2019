@@ -8,7 +8,6 @@ import android.graphics.Path
 import android.graphics.DashPathEffect
 
 
-
 class Aim {
     var x = 0
     var y = 0
