@@ -1,7 +1,6 @@
 package fall_game_jam_2019.fallgamejam2019
 
 import android.graphics.Bitmap
-import android.graphics.Canvas
 
 class Rocket(var img: Bitmap) : GameObject(img, 10000.0, HitBoxType.RECTANGLE) {
 
