@@ -106,5 +106,7 @@ abstract class GameObject(var image: Bitmap, val mass: Double) {
 
     fun setHeld(b: Boolean) {
         held = b
+        holdDiffX = 0
+        holdDiffY = 0
     }
 }

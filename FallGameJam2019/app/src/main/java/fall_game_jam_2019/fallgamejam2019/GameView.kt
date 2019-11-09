@@ -111,20 +111,20 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
             }
             MotionEvent.ACTION_UP -> {
                 touched = false
-                holding = null
                 holding?.setHeld(false)
+                holding = null
                 newTouch = false
             }
             MotionEvent.ACTION_CANCEL -> {
                 touched = false
-                holding = null
                 holding?.setHeld(false)
+                holding = null
                 newTouch = false
             }
             MotionEvent.ACTION_OUTSIDE -> {
                 touched = false
-                holding = null
                 holding?.setHeld(false)
+                holding = null
                 newTouch = false
             }
         }
