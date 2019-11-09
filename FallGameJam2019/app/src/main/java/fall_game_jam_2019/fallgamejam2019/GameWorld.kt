@@ -14,15 +14,21 @@ class GameWorld(resources: Resources) {
     var moon: Moon = Moon()
 
     fun update(delta_time: Double){
-        var moon_tot_v = (moon.xVel + moon.yVel).pow(2)
-        var moon_tot_dist = distance(moon.x.toDouble(), moon.y.toDouble(),earth.x.toDouble(),earth.y.toDouble() )
-        var moon_f_to_earth = (moon.mass.divide(BigInteger((moon_tot_v/moon_tot_dist).toString())))
-        var moon_a_to_earth = (moon_f_to_earth / moon.mass)
+        var moon_v2 = (moon.xVel + moon.yVel).pow(2)
+        var moon_r = distance(moon.x, moon.y,earth.x,earth.y)
+        var earth_g = moon.mass/ (moon_v2/moon_r)
+        var moon_a_towards_earth = earth_g / moon.mass
+
+        
+
 
 
     }
+<<<<<<< HEAD
 
     fun draw(canvas: Canvas) {
 
     }
+=======
+>>>>>>> 51cf40333aea149ec1a1fad262a811bad6b4277a
 }

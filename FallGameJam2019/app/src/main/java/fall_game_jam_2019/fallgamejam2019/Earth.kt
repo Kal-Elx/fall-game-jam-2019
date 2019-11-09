@@ -1,11 +1,11 @@
 package fall_game_jam_2019.fallgamejam2019
 
 import android.graphics.Bitmap
-import java.math.BigInteger
+import kotlin.math.pow
 
 class Earth {
-    val x = 0 // m from earth´s core
-    val y = 0 // m from earth´s core
-    val radius = 6371000 // m
-    val mass = BigInteger("5972000000000000000000000") // kg, p1*10^p2
+    val x: Double = 0.0 // m from earth´s core
+    val y: Double = 0.0 // m from earth´s core
+    val radius: Double = 6371000.0 // m
+    val mass: Double = 5972.0 * 10.0.pow(21) // kg, p1*10^p2
 }
