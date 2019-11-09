@@ -104,8 +104,8 @@ abstract class GameObject(var image: Bitmap, val mass: Double) {
         newYVelocity *= 0.99
     }
 
-    fun setHeld(b: Boolean) {
-        held = b
+    fun release() {
+        held = false
         holdDiffX = 0
         holdDiffY = 0
     }
