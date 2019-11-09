@@ -14,7 +14,6 @@ import java.lang.Exception
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
-    private val gameObjects = mutableListOf<GameObject>()
     private var holding: GameObject? = null
 
     private var touched: Boolean = false
@@ -45,7 +44,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     override fun surfaceCreated(p0: SurfaceHolder?) {
         // game objects
-        gameObjects.add(Grenade(BitmapFactory.decodeResource(resources, R.drawable.grenade)))
+
+        game_world = GameWorld(resources)
 
         // start game thread
         thread.setRunning(true)
@@ -59,27 +59,11 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
      * Function to update the positions of player and game objects
      */
     fun update(delta_time: Double) {
-        for (o in gameObjects) {
-            o.update()
-            if (holding == null && newTouch && o.touched(touchedX, touchedY)) {
-                holding = o
-            }
+        if (holding == null && newTouch && game_world?.rocket!!.touched(touchedX, touchedY)) {
+            holding = game_world?.rocket
         }
         holding?.updateTouch(touchedX, touchedY)
-
-        for (o1 in gameObjects) {
-            for (o2 in gameObjects) {
-
-                // Collision handling
-                if (o1 != o2 && o1.hasCollided(o2)) {
-                    o1.onCollision(o2)
-                }
-            }
-        }
-
-        for (o in gameObjects) {
-            o.lateUpdate()
-        }
+        game_world?.update(delta_time)
     }
 
     /**
@@ -88,9 +72,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
 
-        for (o in gameObjects) {
-            o.draw(canvas)
-        }
+        game_world?.draw(canvas)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
