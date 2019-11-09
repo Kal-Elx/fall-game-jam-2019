@@ -22,6 +22,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var touchedY: Int = 0
 
     private var game_world: GameWorld = GameWorld(resources)
+    private var aim = Aim()
+
     private var bitmap_earth: Bitmap = Bitmap.createScaledBitmap(
         BitmapFactory.decodeResource(resources, R.drawable.earth2), 300, 300, false)
     private var bitmap_moon: Bitmap = Bitmap.createScaledBitmap(
@@ -64,7 +66,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
      */
     fun update(delta_time: Double) {
         if (touched) {
-            // Draw aim
+            aim.x = touchedX
+            aim.y = touchedY
         }
         game_world?.update(delta_time)
     }
@@ -75,6 +78,9 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         draw_game_world(canvas)
+        if (touched) {
+            aim.draw(canvas)
+        }
     }
 
     private fun draw_game_world(canvas: Canvas) {
@@ -100,12 +106,14 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         when (action) {
             MotionEvent.ACTION_DOWN -> {
                 touched = true
+                aim.load()
             }
             MotionEvent.ACTION_MOVE -> {
                 touched = true
             }
             MotionEvent.ACTION_UP -> {
                 touched = false
+                aim.release()
             }
             MotionEvent.ACTION_CANCEL -> {
                 touched = false
