@@ -1,9 +1,11 @@
 package fall_game_jam_2019.fallgamejam2019
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -20,6 +22,12 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var newTouch: Boolean = false
     private var touchedX: Int = 0
     private var touchedY: Int = 0
+
+
+    var WORLD_HEIGHT: Int = 100 //In meters
+    var WORLD_BREADTH: Int = 20 // In Meters
+    var WORLD_GRAVITY: Double = 9.81 // Acceleration in m/s^2
+
 
     init {
         holder.addCallback(this)
@@ -44,7 +52,6 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     override fun surfaceCreated(p0: SurfaceHolder?) {
         // game objects
         gameObjects.add(Grenade(BitmapFactory.decodeResource(resources, R.drawable.grenade)))
-        //gameObjects.add(Grenade(BitmapFactory.decodeResource(resources, R.drawable.grenade)))
 
         // start game thread
         thread.setRunning(true)
