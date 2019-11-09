@@ -4,7 +4,7 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import kotlin.math.abs
-import java.lang.Math.pow
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 enum class HitBoxType {
@@ -86,11 +86,7 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
 
     fun touched(touchX: Int, touchY: Int): Boolean {
         val touched = sqrt(
-            (pow((x - touchX).toDouble(), 2.0) + pow(
-                (y - touchY).toDouble(),
-                2.0
-            ))
-        ) < touchOffset
+            (((x - touchX).toDouble()).pow(2) + (y - touchY).toDouble().pow(2))) < touchOffset
         return touched
     }
 
@@ -101,9 +97,7 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
             if (xdif < this.w/2 + other.w/2  && ydif < this.h/2 + other.h/2 ){
                 return true
             }
-        }
-
-        if(other.hitBoxType == HitBoxType.CIRCLE && this.hitBoxType == HitBoxType.RECTANGLE){
+        }else if(other.hitBoxType == HitBoxType.CIRCLE && this.hitBoxType == HitBoxType.RECTANGLE){
             var cdx = abs(other.x-this.x)
             var cdy = abs(other.y-this.y)
 
@@ -115,7 +109,8 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
                     return true
                 }
 
-                //var cdsq = (cdx - this.w/2)**2 +
+                var cdsq = (cdx - this.w/2).toDouble().pow(2) + (cdy-this.h/2).toDouble().pow(2)
+                return cdsq <= ((other.w/2).toDouble().pow(2))
             }
         }
         return false
