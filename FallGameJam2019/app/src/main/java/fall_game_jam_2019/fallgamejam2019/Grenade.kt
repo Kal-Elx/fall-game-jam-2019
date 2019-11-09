@@ -10,7 +10,7 @@ import android.graphics.Canvas
  * Grenade is the opponent.
  */
 
-class Grenade(var img: Bitmap) : GameObject(img, 1.0, HitBoxType.RECTANGLE) {
+class Grenade(var img: Bitmap) : GameObject(img, 1.0) {
 
 
     init {
