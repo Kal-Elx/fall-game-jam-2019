@@ -3,17 +3,20 @@ package fall_game_jam_2019.fallgamejam2019
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import kotlin.math.abs
 
 enum class HitBoxType {
     CIRCLE, RECTANGLE
 }
 
-abstract class GameObject(var image: Bitmap, val mass: Double) {
+abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: HitBoxType) {
     var x: Int = 0
     var y: Int = 0
     var w: Int = 0
     var h: Int = 0
     val m = mass
+
+    //protected val hitBoxType: HitBoxType =hitBoxType
 
 
     protected var xVelocity: Double = 20.0
@@ -44,7 +47,7 @@ abstract class GameObject(var image: Bitmap, val mass: Double) {
         applyGravity()
         applyAirResistance()
 
-        //TODO: Remove when Collisison Detection has been implemented, Handled By
+        //TODO: Remove when Collisison Detection has been implemented, Handled By it
         if (x > screenWidth - image.width || x < image.width) {
             newXVelocity = xVelocity * -1
         }
@@ -72,6 +75,33 @@ abstract class GameObject(var image: Bitmap, val mass: Double) {
     fun onCollision(other: GameObject){
         newXVelocity = ((this.mass-other.mass)/ (this.mass + other.mass))* this.xVelocity + ((2*other.mass)/(this.mass+other.mass))*other.xVelocity
         newYVelocity = ((this.mass-other.mass)/ (this.mass + other.mass))* this.yVelocity + ((2*other.mass)/(this.mass+other.mass))*other.yVelocity
+    }
+
+    fun hasCollided(other:GameObject): Boolean{
+        if(other.hitBoxType == HitBoxType.RECTANGLE && this.hitBoxType == HitBoxType.RECTANGLE){
+            var xdif = abs(this.x - other.x)
+            var ydif = abs(this.y - other.y)
+            if (xdif < this.w/2 + other.w/2  && ydif < this.h/2 + other.h/2 ){
+                return true
+            }
+        }
+
+        if(other.hitBoxType == HitBoxType.CIRCLE && this.hitBoxType == HitBoxType.RECTANGLE){
+            var cdx = abs(other.x-this.x)
+            var cdy = abs(other.y-this.y)
+
+            //The case when the circle center is inside of the rectangle + the radius, there is a possibility of a collision
+            if (cdx <= (this.w/2 + other.w/2) && (cdy <= (this.h/2 + other.h/2))) {
+
+                // The Circles center is inside of the rectangle
+                if(cdx <= (this.w/2) && (cdy <= (this.h/2))){
+                    return true
+                }
+
+                //var cdsq = (cdx - this.w/2)**2 +
+            }
+        }
+        return false
     }
 
     fun touched(touch_x: Int, touch_y: Int): Boolean {

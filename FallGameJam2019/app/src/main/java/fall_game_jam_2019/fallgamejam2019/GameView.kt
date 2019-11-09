@@ -66,8 +66,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         for (o1 in gameObjects) {
             for (o2 in gameObjects) {
                 // TODO ADD Collision detection
-                if (o1 != o2) {
-
+                if (o1 != o2 && o1.hasCollided(o2)) {
+                    o1.onCollision(o2)
                 }
             }
         }
