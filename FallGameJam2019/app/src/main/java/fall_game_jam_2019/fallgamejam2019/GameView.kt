@@ -15,10 +15,8 @@ import java.lang.Exception
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
-    private var holding: Rocket? = null
 
     private var touched: Boolean = false
-    private var newTouch: Boolean = false
     private var touchedX: Int = 0
     private var touchedY: Int = 0
 
@@ -66,10 +64,9 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
      * Function to update the positions of player and game objects
      */
     fun update(delta_time: Double) {
-        if (holding == null && newTouch && game_world?.rocket!!.touched(touchedX, touchedY)) {
-            holding = game_world?.rocket
+        if (touched) {
+            // Draw aim
         }
-        holding?.updateTouch(touchedX, touchedY)
         game_world?.update(delta_time)
     }
 
@@ -98,29 +95,18 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         when (action) {
             MotionEvent.ACTION_DOWN -> {
                 touched = true
-                newTouch = true
             }
             MotionEvent.ACTION_MOVE -> {
                 touched = true
-                newTouch = false
             }
             MotionEvent.ACTION_UP -> {
                 touched = false
-                newTouch = false
-                holding?.release()
-                holding = null
             }
             MotionEvent.ACTION_CANCEL -> {
                 touched = false
-                newTouch = false
-                holding?.release()
-                holding = null
             }
             MotionEvent.ACTION_OUTSIDE -> {
                 touched = false
-                newTouch = false
-                holding?.release()
-                holding = null
             }
         }
         return true
