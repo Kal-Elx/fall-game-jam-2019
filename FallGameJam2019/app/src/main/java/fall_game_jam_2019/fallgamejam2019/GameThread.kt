@@ -17,16 +17,19 @@ class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView:
         var timeMillis: Long
         var waitTime: Long
         val targetTime = (1000 / targetFPS).toLong()
+        var last_update: Long
 
         while (running) {
             startTime = System.nanoTime()
+            last_update = startTime
             canvas = null
 
             try {
                 // locking the canvas allows us to draw on to it
                 canvas = this.surfaceHolder.lockCanvas()
                 synchronized(surfaceHolder) {
-                    this.gameView.update(0.0)
+                    this.gameView.update(((((System.nanoTime() - last_update) / 1000000).toDouble()) / 1000))
+                    last_update = System.nanoTime()
                     this.gameView.draw(canvas!!)
                 }
             } catch (e: Exception) {

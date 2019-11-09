@@ -15,7 +15,7 @@ class GameWorld(resources: Resources) {
     var rocket: GameObject = Grenade(BitmapFactory.decodeResource(resources, R.drawable.grenade))
 
     fun update(delta_time: Double){
-
+        rocket.update(delta_time)
     }
 
     fun draw(canvas: Canvas) {

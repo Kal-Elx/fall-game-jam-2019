@@ -38,7 +38,7 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
     /**
      * update properties for the game object
      */
-    fun update() {
+    fun update(delta_time: Long) {
         newXVelocity = xVelocity
         newYVelocity = yVelocity
 
