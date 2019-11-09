@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import java.lang.Double.POSITIVE_INFINITY
 import java.lang.Exception
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
@@ -64,9 +65,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
                 holding = o
             }
         }
-        if (touched) {
-            holding?.updateTouch(touchedX, touchedY)
-        }
+        holding?.updateTouch(touchedX, touchedY)
 
         for (o1 in gameObjects) {
             for (o2 in gameObjects) {
@@ -113,21 +112,21 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
             }
             MotionEvent.ACTION_UP -> {
                 touched = false
-                holding?.setHeld(false)
-                holding = null
                 newTouch = false
+                holding?.release()
+                holding = null
             }
             MotionEvent.ACTION_CANCEL -> {
                 touched = false
-                holding?.setHeld(false)
-                holding = null
                 newTouch = false
+                holding?.release()
+                holding = null
             }
             MotionEvent.ACTION_OUTSIDE -> {
                 touched = false
-                holding?.setHeld(false)
-                holding = null
                 newTouch = false
+                holding?.release()
+                holding = null
             }
         }
         return true
