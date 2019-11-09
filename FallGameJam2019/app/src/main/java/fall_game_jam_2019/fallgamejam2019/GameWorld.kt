@@ -15,8 +15,4 @@ class GameWorld(resources: Resources) {
     fun update(delta_time: Double){
 
     }
-
-    fun draw(canvas: Canvas) {
-        
-    }
 }

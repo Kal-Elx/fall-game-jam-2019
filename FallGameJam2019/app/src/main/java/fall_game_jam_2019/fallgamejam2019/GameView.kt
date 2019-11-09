@@ -2,6 +2,7 @@ package fall_game_jam_2019.fallgamejam2019
 
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.util.AttributeSet
@@ -21,7 +22,14 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var touchedX: Int = 0
     private var touchedY: Int = 0
 
+
     private var game_world: GameWorld?= null
+    private var bitmap_earth: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.earth2)
+    private var bitmap_moon: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.moon)
+    //private var bitmap_rocket: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.moon)
+
+    protected val screenWidth = Resources.getSystem().displayMetrics.widthPixels
+    protected val screenHeight = Resources.getSystem().displayMetrics.heightPixels
 
     init {
         holder.addCallback(this)
@@ -71,8 +79,13 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
      */
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
+        draw_game_world(canvas)
+    }
 
-        game_world?.draw(canvas)
+    private fun draw_game_world(canvas: Canvas) {
+        // Draw Earth
+        canvas.drawBitmap(bitmap_earth, (screenWidth/2).toFloat(), (screenHeight/2).toFloat(), null)
+
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
