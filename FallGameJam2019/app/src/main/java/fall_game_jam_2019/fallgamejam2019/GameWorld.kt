@@ -13,14 +13,10 @@ class GameWorld(resources: Resources) {
     var moon: Moon = Moon()
 
     fun update(delta_time: Double){
-        var moon_v2 = (moon.xVel + moon.yVel).pow(2)
+
+        var moon_v2 = (moon.xVel.pow(2) + moon.yVel.pow(2))
         var moon_r = distance(moon.x, moon.y,earth.x,earth.y)
         var earth_g = moon.mass/ (moon_v2/moon_r)
         var moon_a_towards_earth = earth_g / moon.mass
-
-
-
-
-
     }
 }
