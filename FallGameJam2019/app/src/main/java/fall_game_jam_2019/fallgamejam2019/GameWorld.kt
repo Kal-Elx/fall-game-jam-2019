@@ -12,7 +12,7 @@ class GameWorld(resources: Resources) {
     val bullet_mass = 10 // Kg
     val planet_radius: Int = 10000 //meters
 
-    var rocket: GameObject = Grenade(BitmapFactory.decodeResource(resources, R.drawable.grenade))
+    var rocket: Rocket = Rocket(BitmapFactory.decodeResource(resources, R.drawable.grenade))
 
     fun update(delta_time: Double){
         rocket.update(delta_time)
