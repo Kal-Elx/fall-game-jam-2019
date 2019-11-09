@@ -62,6 +62,21 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
                 o.updateTouch(touched_x, touched_y)
             }
         }
+
+        for (o1 in gameObjects) {
+            for (o2 in gameObjects) {
+                // TODO ADD Collision detection
+                if (o1 != o2) {
+
+                }
+            }
+        }
+
+
+
+        for (o in gameObjects) {
+            o.lateUpdate()
+        }
     }
 
     /**
