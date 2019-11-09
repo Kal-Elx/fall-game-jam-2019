@@ -7,11 +7,7 @@ import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-enum class HitBoxType {
-    CIRCLE, RECTANGLE
-}
-
-abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: HitBoxType) {
+abstract class GameObject(var image: Bitmap, val mass: Double) {
     var x: Int = 0
     var y: Int = 0
     var w: Int = 0
@@ -73,11 +69,6 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
         newYVelocity = 0.0
     }
 
-    fun onCollision(other: GameObject){
-
-        newXVelocity = ((this.mass-other.mass)/ (this.mass + other.mass))* this.xVelocity + ((2*other.mass)/(this.mass+other.mass))*other.xVelocity
-        newYVelocity = ((this.mass-other.mass)/ (this.mass + other.mass))* this.yVelocity + ((2*other.mass)/(this.mass+other.mass))*other.yVelocity
-     }
 
     fun touched(touchX: Int, touchY: Int): Boolean {
         val touched = sqrt(
@@ -85,31 +76,7 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
         return touched
     }
 
-    fun hasCollided(other:GameObject): Boolean{
-        if(other.hitBoxType == HitBoxType.RECTANGLE && this.hitBoxType == HitBoxType.RECTANGLE){
-            var xdif = abs(this.x - other.x)
-            var ydif = abs(this.y - other.y)
-            if (xdif < this.w/2 + other.w/2  && ydif < this.h/2 + other.h/2 ){
-                return true
-            }
-        }else if(other.hitBoxType == HitBoxType.CIRCLE && this.hitBoxType == HitBoxType.RECTANGLE){
-            cicle_intersects_rectangle(other, this)
 
-        }else if(other.hitBoxType == HitBoxType.RECTANGLE && this.hitBoxType == HitBoxType.CIRCLE){
-            cicle_intersects_rectangle(this, other)
-        }
-        else if (other.hitBoxType == HitBoxType.CIRCLE && this.hitBoxType == HitBoxType.CIRCLE){
-            var dx = (this.x - other.x).toDouble();
-            var dy = (this.y - other.y).toDouble();
-            var distance = sqrt(dx * dx + dy * dy);
-
-            return distance < this.w + other.w
-        }
-
-        //TODO: Throw exception
-        return false
-
-    }
 
     /**
      * Draws the object on to the canvas.
