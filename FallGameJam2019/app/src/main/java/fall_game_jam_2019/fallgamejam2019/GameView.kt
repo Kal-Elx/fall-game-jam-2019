@@ -6,13 +6,10 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.util.AttributeSet
-import android.view.Gravity
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import java.lang.Double.POSITIVE_INFINITY
 import java.lang.Exception
-import java.lang.Math.sqrt
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
@@ -28,7 +25,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         BitmapFactory.decodeResource(resources, R.drawable.earth2), 300, 300, false)
     private var bitmap_moon: Bitmap = Bitmap.createScaledBitmap(
         BitmapFactory.decodeResource(resources, R.drawable.moon), 81, 81, false)
-    //private var bitmap_rocket: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.moon)
+    private var bitmap_rocket: Bitmap = Bitmap.createScaledBitmap(
+        BitmapFactory.decodeResource(resources, R.drawable.asteroid), 162, 162, false)
 
     protected val screenWidth = Resources.getSystem().displayMetrics.widthPixels
     protected val screenHeight = Resources.getSystem().displayMetrics.heightPixels
@@ -88,11 +86,26 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         canvas.drawBitmap(bitmap_earth, ((screenWidth-bitmap_earth.width)/2).toFloat(), ((screenWidth-bitmap_earth.width)/2).toFloat(), null)
 
         // Draw Moon
-        canvas.drawBitmap(bitmap_moon, getPixelCoordinate(game_world.moon.x) - ((bitmap_moon.width)/2).toFloat(), getPixelCoordinate(game_world.moon.y) - ((bitmap_moon.height)/2).toFloat(), null)
+        canvas.drawBitmap(bitmap_moon, getPixelX(0) - ((bitmap_moon.width)/2).toFloat(), getPixelY(370000000) - ((bitmap_moon.height)/2).toFloat(), null)
+
+        // Draw Rocket
+        canvas.drawBitmap(bitmap_rocket, getPixelX(game_world.rocket.x) - ((bitmap_rocket.width)/2).toFloat(), getPixelY(game_world.rocket.y) - ((bitmap_rocket.height)/2).toFloat(), null)
     }
 
-    private fun getPixelCoordinate (astro_coord: Int): Float {
-        return astro_coord.toFloat() * (500f / 370000000f) + (screenWidth)/2
+    private fun getPixelX (astro_x: Int): Float {
+        return astro_x.toFloat() * (500f / 370000000f) + (screenWidth/2)
+    }
+
+    private fun getPixelY (astro_y: Int): Float {
+        return - astro_y.toFloat() * (500f / 370000000f) + (screenWidth/2)
+    }
+
+    private fun getAstroX (pixel_x: Int): Int {
+        return ((pixel_x - (screenWidth/2)) / (500f / 370000000f)).toInt()
+    }
+
+    private fun getAstroY (pixel_y: Int): Int {
+        return (- (pixel_y - (screenWidth/2)) / (500f / 370000000f)).toInt()
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
