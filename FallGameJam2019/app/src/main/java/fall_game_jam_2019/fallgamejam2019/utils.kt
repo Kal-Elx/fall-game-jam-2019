@@ -11,23 +11,26 @@ fun distance(x1: Double,y1:Double,x2: Double,y2: Double): Double{
 
 val screenWidth = Resources.getSystem().displayMetrics.widthPixels
 val screenHeight = Resources.getSystem().displayMetrics.heightPixels
+val scale = (500f / 370000000f)
 
-fun getPixelX (astro_x: Int): Float {
-    return astro_x.toFloat() * (500f / 370000000f) + (screenWidth/2)
+fun getPixelX (astro_x: Double): Float {
+    return astro_x.toFloat() * scale + (screenWidth/2)
 }
 
-fun getPixelY (astro_y: Int): Float {
-    return - astro_y.toFloat() * (500f / 370000000f) + (screenWidth/2)
+fun getPixelY (astro_y: Double): Float {
+    return - astro_y.toFloat() * scale + (screenWidth/2)
 }
 
 fun getAstroX (pixel_x: Int): Int {
-    return ((pixel_x - (screenWidth/2)) / (500f / 370000000f)).toInt()
+    return ((pixel_x - (screenWidth/2)) / scale).toInt()
 }
 
 fun getAstroY (pixel_y: Int): Int {
-    return (- (pixel_y - (screenWidth/2)) / (500f / 370000000f)).toInt()
+    return (- (pixel_y - (screenWidth/2)) / scale).toInt()
 }
 
+
+/*
 fun cicle_intersects_rectangle(circle: GameObject, rectangle: GameObject): Boolean{
     var cdx = abs(circle.x-rectangle.x)
     var cdy = abs(circle.y-rectangle.y)
@@ -47,8 +50,6 @@ fun cicle_intersects_rectangle(circle: GameObject, rectangle: GameObject): Boole
     return cdsq <= ((circle.w/2).toDouble().pow(2))
 }
 
-
-/*
 fun hasCollided(other:GameObject): Boolean{
     if(other.hitBoxType == HitBoxType.RECTANGLE && this.hitBoxType == HitBoxType.RECTANGLE){
         var xdif = abs(this.x - other.x)

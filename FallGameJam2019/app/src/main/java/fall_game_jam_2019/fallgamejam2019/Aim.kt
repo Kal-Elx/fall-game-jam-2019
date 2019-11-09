@@ -36,7 +36,7 @@ class Aim {
     }
 
     fun release() {
-        resX = orgX - x
+        resX = x - orgX
         resY = orgY - y
     }
 }

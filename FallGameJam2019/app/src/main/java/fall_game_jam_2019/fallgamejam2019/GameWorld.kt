@@ -10,9 +10,21 @@ class GameWorld(resources: Resources) {
     var moon: Moon = Moon()
 
     val G: Double = 6.67408 * 10.0.pow(-11)
-    val playbackSpeed = 10 // Simulated seconds in one sec
+    val playbackSpeed = 1000 // Simulated seconds in one sec
 
     fun update(delta_time: Double) {
-        
+        // Move moon
+        moon.x += moon.xVel*playbackSpeed // delta time looks weird. Use FPS instead?
+        moon.y += moon.yVel*playbackSpeed
+
+        // TODO: Gravity between earth and moon
+        // TODO: Gravity between moon and asteroid
+
+        // Move asteroid
+        asteroid.x += asteroid.xVel*playbackSpeed
+        asteroid.y += asteroid.yVel*playbackSpeed
+
+        // TODO: Gravity between earth and asteroid
+        // TODO: Gravity between asteroid and moon
     }
 }
