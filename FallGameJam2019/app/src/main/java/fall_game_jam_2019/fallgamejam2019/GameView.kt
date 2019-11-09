@@ -14,7 +14,7 @@ import java.lang.Exception
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
-    private var holding: GameObject? = null
+    private var holding: Rocket? = null
 
     private var touched: Boolean = false
     private var newTouch: Boolean = false
@@ -71,7 +71,6 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
      */
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
-
         game_world?.draw(canvas)
     }
 
