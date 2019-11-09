@@ -21,15 +21,10 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var touchedX: Int = 0
     private var touchedY: Int = 0
 
-
-    var WORLD_HEIGHT: Int = 100 //In meters
-    var WORLD_BREADTH: Int = 20 // In Meters
-    var WORLD_GRAVITY: Double = 9.81 // Acceleration in m/s^2
-
+    private var game_world: GameWorld?= null
 
     init {
         holder.addCallback(this)
-
         thread = GameThread(holder, this)
     }
 
@@ -57,13 +52,12 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun surfaceChanged(p0: SurfaceHolder?, p1: Int, p2: Int, p3: Int) {
-
     }
 
     /**
      * Function to update the positions of player and game objects
      */
-    fun update() {
+    fun update(delta_time: Double) {
         for (o in gameObjects) {
             o.update()
             if (holding == null && newTouch && o.touched(touchedX, touchedY)) {
@@ -76,7 +70,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
         for (o1 in gameObjects) {
             for (o2 in gameObjects) {
-                // TODO ADD Collision detection
+
+                // Collision handling
                 if (o1 != o2 && o1.hasCollided(o2)) {
                     o1.onCollision(o2)
                 }
