@@ -15,8 +15,7 @@ import java.lang.Exception
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
     private val gameObjects = mutableListOf<GameObject>()
-    private val holding = mutableListOf<GameObject>()
-    private val holdLimit = 2
+    private var holding: GameObject? = null
 
     private var touched: Boolean = false
     private var newTouch: Boolean = false
@@ -68,14 +67,11 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     fun update() {
         for (o in gameObjects) {
             o.update()
-            if (holding.size < holdLimit && newTouch && o.touched(touchedX, touchedY)) {
-                holding.add(o)
+            if (holding == null && newTouch && o.touched(touchedX, touchedY)) {
+                holding = o
             }
         }
-
-        for (o in holding) {
-            o.updateTouch(touchedX, touchedY)
-        }
+        holding?.updateTouch(touchedX, touchedY)
 
         for (o1 in gameObjects) {
             for (o2 in gameObjects) {
@@ -121,40 +117,23 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
             }
             MotionEvent.ACTION_UP -> {
                 touched = false
-                var closest = getClosestHolding(touchedX, touchedY)
-                closest?.release()
-                holding.remove(element = closest)
                 newTouch = false
+                holding?.release()
+                holding = null
             }
             MotionEvent.ACTION_CANCEL -> {
                 touched = false
-                var closest = getClosestHolding(touchedX, touchedY)
-                closest?.release()
-                holding.remove(element = closest)
                 newTouch = false
+                holding?.release()
+                holding = null
             }
             MotionEvent.ACTION_OUTSIDE -> {
                 touched = false
-                var closest = getClosestHolding(touchedX, touchedY)
-                closest?.release()
-                holding.remove(element = closest)
                 newTouch = false
+                holding?.release()
+                holding = null
             }
         }
         return true
-    }
-
-    private fun getClosestHolding(touchX: Int, touchY: Int): GameObject? {
-        var dist = POSITIVE_INFINITY
-        var gameObject: GameObject? = null
-
-        for (o in holding) {
-            var d = 1.0
-            if (d < dist) {
-                dist = d
-                gameObject = o
-            }
-        }
-        return gameObject
     }
 }
