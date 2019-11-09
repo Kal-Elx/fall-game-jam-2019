@@ -17,8 +17,8 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
     var w: Int = 0
     var h: Int = 0
 
-    protected var xVelocity: Double = 20.0
-    protected var yVelocity: Double = 20.0
+    protected var xVelocity: Double = 0.0
+    protected var yVelocity: Double = 0.0
     protected var newXVelocity: Double = xVelocity
     protected var newYVelocity: Double = yVelocity
 
@@ -41,9 +41,6 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
     fun update() {
         newXVelocity = xVelocity
         newYVelocity = yVelocity
-
-        applyGravity()
-        applyAirResistance()
 
         //TODO: Remove when Collisison Detection has been implemented, Handled By it
         if (x > screenWidth - image.width || x < image.width) {
@@ -121,38 +118,9 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
         canvas.drawBitmap(image, (x-w/2).toFloat(), (y-h/2).toFloat(), null)
     }
 
-    fun applyGravity() {
-        newYVelocity += 1
-    }
-
-    fun applyAirResistance() {
-        newXVelocity *= 0.99
-        newYVelocity *= 0.99
-    }
-
-    fun release() {
+    open fun release() {
         held = false
         holdDiffX = 0
         holdDiffY = 0
     }
-}
-
-fun cicle_intersects_rectangle(circle: GameObject, rectangle: GameObject): Boolean{
-    var cdx = abs(circle.x-rectangle.x)
-    var cdy = abs(circle.y-rectangle.y)
-
-    //The case when the circle center is inside of the rectangle + the radius, there is a possibility of a collision
-    if (cdx > (rectangle.w/2 + circle.w/2) || (cdy > (rectangle.h/2 + circle.h/2))) {
-        return false
-    }
-
-    // The Circles center is inside of the rectangle
-    if(cdx <= (rectangle.w/2) || (cdy <= (rectangle.h/2))){
-        return true
-    }
-
-    // Handling the corner
-    var cdsq = (cdx - rectangle.w/2).toDouble().pow(2) + (cdy-rectangle.h/2).toDouble().pow(2)
-    return cdsq <= ((circle.w/2).toDouble().pow(2))
-
 }
