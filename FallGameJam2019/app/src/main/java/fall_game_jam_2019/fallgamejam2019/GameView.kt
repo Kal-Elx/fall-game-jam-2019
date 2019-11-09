@@ -20,6 +20,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var touchedY: Int = 0
 
     private var game_world: GameWorld?= null
+    private var aim = Aim()
 
     init {
         holder.addCallback(this)
@@ -58,7 +59,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
      */
     fun update(delta_time: Double) {
         if (touched) {
-            // Draw aim
+            aim.x = touchedX
+            aim.y = touchedY
         }
         game_world?.update(delta_time)
     }
@@ -69,6 +71,10 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         game_world?.draw(canvas)
+
+        if (touched) {
+            aim.draw(canvas)
+        }
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -82,12 +88,14 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         when (action) {
             MotionEvent.ACTION_DOWN -> {
                 touched = true
+                aim.load()
             }
             MotionEvent.ACTION_MOVE -> {
                 touched = true
             }
             MotionEvent.ACTION_UP -> {
                 touched = false
+                aim.release()
             }
             MotionEvent.ACTION_CANCEL -> {
                 touched = false

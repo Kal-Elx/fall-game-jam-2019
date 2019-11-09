@@ -2,6 +2,8 @@ package fall_game_jam_2019.fallgamejam2019
 
 import android.content.res.Resources
 import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.Path
 
 class Aim {
@@ -12,10 +14,26 @@ class Aim {
     val orgX = screenWidth/2
     val orgY = screenHeight
 
-    fun draw(canvas: Canvas) {
-        val path = Path()
-        path.moveTo(orgX.toFloat(), orgY.toFloat())
+    var resX = 0
+    var resY = 0
 
-        //canvas.drawPath()
+    fun draw(canvas: Canvas) {
+        val paint = Paint()
+        paint.setColor(Color.parseColor("#FFFFFF"))
+        paint.setStrokeWidth(30F)
+        paint.setStyle(Paint.Style.STROKE)
+        paint.setAntiAlias(true)
+        paint.setDither(true)
+        canvas.drawLine(orgX.toFloat(), orgY.toFloat(), x.toFloat(), y.toFloat(), paint)
+    }
+
+    fun load() {
+        resX = 0
+        resY = 0
+    }
+
+    fun release() {
+        resX = orgX - x
+        resY = orgY - y
     }
 }
