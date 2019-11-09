@@ -24,11 +24,8 @@ class GameWorld(resources: Resources) {
 
 
     }
-<<<<<<< HEAD
 
     fun draw(canvas: Canvas) {
 
     }
-=======
->>>>>>> 51cf40333aea149ec1a1fad262a811bad6b4277a
 }
