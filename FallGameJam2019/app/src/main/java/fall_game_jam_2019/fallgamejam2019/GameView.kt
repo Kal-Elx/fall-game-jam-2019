@@ -66,11 +66,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
      */
     fun update(delta_time: Double) {
         if (touched) {
-<<<<<<< HEAD
-=======
             aim.x = touchedX
             aim.y = touchedY
->>>>>>> 51cf40333aea149ec1a1fad262a811bad6b4277a
         }
         game_world?.update(delta_time)
     }

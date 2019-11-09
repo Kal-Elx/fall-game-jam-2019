@@ -4,7 +4,6 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
-import java.math.BigInteger
 import kotlin.math.pow
 
 class GameWorld(resources: Resources) {
@@ -19,13 +18,9 @@ class GameWorld(resources: Resources) {
         var earth_g = moon.mass/ (moon_v2/moon_r)
         var moon_a_towards_earth = earth_g / moon.mass
 
-        
 
 
 
-    }
-
-    fun draw(canvas: Canvas) {
 
     }
 }
