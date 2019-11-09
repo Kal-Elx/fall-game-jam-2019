@@ -85,9 +85,6 @@ abstract class GameObject(var image: Bitmap, val mass: Double) {
 
     fun touched(touchX: Int, touchY: Int): Boolean {
         val touched = sqrt((pow((x-touchX).toDouble(), 2.0)+pow((y-touchY).toDouble(),2.0))) < touchOffset
-        if (!touched) {
-            held = false
-        }
         return touched
     }
 

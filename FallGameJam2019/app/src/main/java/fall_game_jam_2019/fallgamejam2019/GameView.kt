@@ -12,10 +12,12 @@ import java.lang.Exception
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
     private val gameObjects = mutableListOf<GameObject>()
+    private var holding: GameObject? = null
 
     private var touched: Boolean = false
-    private var touched_x: Int = 0
-    private var touched_y: Int = 0
+    private var newTouch: Boolean = false
+    private var touchedX: Int = 0
+    private var touchedY: Int = 0
 
     init {
         holder.addCallback(this)
@@ -57,11 +59,12 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     fun update() {
         for (o in gameObjects) {
             o.update()
-            if (touched and o.touched(touched_x, touched_y)) {
-                o.updateTouch(touched_x, touched_y)
-            } else {
-                o.setHeld(false)
+            if (holding == null && newTouch && o.touched(touchedX, touchedY)) {
+                holding = o
             }
+        }
+        if (touched) {
+            holding?.updateTouch(touchedX, touchedY)
         }
 
         for (o1 in gameObjects) {
@@ -72,8 +75,6 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
                 }
             }
         }
-
-
 
         for (o in gameObjects) {
             o.lateUpdate()
@@ -95,16 +96,37 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         // when ever there is a touch on the screen,
         // we can get the position of touch
         // which we may use it for tracking some of the game objects
-        touched_x = event!!.x.toInt()
-        touched_y = event.y.toInt()
+        touchedX = event!!.x.toInt()
+        touchedY = event.y.toInt()
 
         val action = event.action
         when (action) {
-            MotionEvent.ACTION_DOWN -> touched = true
-            MotionEvent.ACTION_MOVE -> touched = true
-            MotionEvent.ACTION_UP -> touched = false
-            MotionEvent.ACTION_CANCEL -> touched = false
-            MotionEvent.ACTION_OUTSIDE -> touched = false
+            MotionEvent.ACTION_DOWN -> {
+                touched = true
+                newTouch = true
+            }
+            MotionEvent.ACTION_MOVE -> {
+                touched = true
+                newTouch = false
+            }
+            MotionEvent.ACTION_UP -> {
+                touched = false
+                holding = null
+                holding?.setHeld(false)
+                newTouch = false
+            }
+            MotionEvent.ACTION_CANCEL -> {
+                touched = false
+                holding = null
+                holding?.setHeld(false)
+                newTouch = false
+            }
+            MotionEvent.ACTION_OUTSIDE -> {
+                touched = false
+                holding = null
+                holding?.setHeld(false)
+                newTouch = false
+            }
         }
         return true
     }
