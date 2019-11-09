@@ -15,13 +15,12 @@ import java.lang.Exception
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
-    private var holding: GameObject? = null
+    private var holding: Rocket? = null
 
     private var touched: Boolean = false
     private var newTouch: Boolean = false
     private var touchedX: Int = 0
     private var touchedY: Int = 0
-
 
     private var game_world: GameWorld?= null
     private var bitmap_earth: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.earth2)
