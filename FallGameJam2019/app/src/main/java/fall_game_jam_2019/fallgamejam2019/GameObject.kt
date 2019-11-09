@@ -98,22 +98,22 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
                 return true
             }
         }else if(other.hitBoxType == HitBoxType.CIRCLE && this.hitBoxType == HitBoxType.RECTANGLE){
-            var cdx = abs(other.x-this.x)
-            var cdy = abs(other.y-this.y)
+            cicle_intersects_rectangle(other, this)
 
-            //The case when the circle center is inside of the rectangle + the radius, there is a possibility of a collision
-            if (cdx <= (this.w/2 + other.w/2) && (cdy <= (this.h/2 + other.h/2))) {
-
-                // The Circles center is inside of the rectangle
-                if(cdx <= (this.w/2) && (cdy <= (this.h/2))){
-                    return true
-                }
-
-                var cdsq = (cdx - this.w/2).toDouble().pow(2) + (cdy-this.h/2).toDouble().pow(2)
-                return cdsq <= ((other.w/2).toDouble().pow(2))
-            }
+        }else if(other.hitBoxType == HitBoxType.RECTANGLE && this.hitBoxType == HitBoxType.CIRCLE){
+            cicle_intersects_rectangle(this, other)
         }
+        else if (other.hitBoxType == HitBoxType.CIRCLE && this.hitBoxType == HitBoxType.CIRCLE){
+            var dx = (this.x - other.x).toDouble();
+            var dy = (this.y - other.y).toDouble();
+            var distance = sqrt(dx * dx + dy * dy);
+
+            return distance < this.w + other.w
+        }
+
+        //TODO: Throw exception
         return false
+
     }
 
     /**
@@ -137,4 +137,24 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
         holdDiffX = 0
         holdDiffY = 0
     }
+}
+
+fun cicle_intersects_rectangle(circle: GameObject, rectangle: GameObject): Boolean{
+    var cdx = abs(circle.x-rectangle.x)
+    var cdy = abs(circle.y-rectangle.y)
+
+    //The case when the circle center is inside of the rectangle + the radius, there is a possibility of a collision
+    if (cdx > (rectangle.w/2 + circle.w/2) || (cdy > (rectangle.h/2 + circle.h/2))) {
+        return false
+    }
+
+    // The Circles center is inside of the rectangle
+    if(cdx <= (rectangle.w/2) || (cdy <= (rectangle.h/2))){
+        return true
+    }
+
+    // Handling the corner
+    var cdsq = (cdx - rectangle.w/2).toDouble().pow(2) + (cdy-rectangle.h/2).toDouble().pow(2)
+    return cdsq <= ((circle.w/2).toDouble().pow(2))
+
 }

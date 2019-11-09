@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -18,6 +19,12 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var newTouch: Boolean = false
     private var touchedX: Int = 0
     private var touchedY: Int = 0
+
+
+    var WORLD_HEIGHT: Int = 100 //In meters
+    var WORLD_BREADTH: Int = 20 // In Meters
+    var WORLD_GRAVITY: Double = 9.81 // Acceleration in m/s^2
+
 
     init {
         holder.addCallback(this)
