@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import kotlin.math.pow
 
 class GameWorld(resources: Resources) {
 
@@ -13,15 +14,14 @@ class GameWorld(resources: Resources) {
     val planet_radius: Int = 10000 //meters
 
     var rocket: Rocket = Rocket(BitmapFactory.decodeResource(resources, R.drawable.grenade))
+    var planet: Planet = Planet(BitmapFactory.decodeResource(resources, R.drawable.earth))
 
     fun update(delta_time: Double){
         rocket.update(delta_time)
     }
 
     fun draw(canvas: Canvas) {
+        planet.draw(canvas)
         rocket.draw(canvas)
-
     }
-
-
 }
