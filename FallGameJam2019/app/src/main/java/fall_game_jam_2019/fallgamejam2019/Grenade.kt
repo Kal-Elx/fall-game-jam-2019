@@ -10,25 +10,6 @@ import android.graphics.Canvas
  * Grenade is the opponent.
  */
 
-class Grenade(var img: Bitmap) : GameObject(img) {
-    /**
-     * update properties for the game object
-     */
-    override fun update() {
-        // val randomNum = ThreadLocalRandom.current().nextInt(1, 5)
+class Grenade(var img: Bitmap) : GameObject(img, 1.0) {
 
-        if (x > screenWidth - image.width || x < image.width) {
-            xVelocity = xVelocity * -1
-        }
-        if (y > screenHeight - image.height || y < image.height) {
-            yVelocity = yVelocity * -1
-        }
-
-        x += (xVelocity)
-        y += (yVelocity)
-    }
-
-    override fun updateTouch(touch_x: Int, touch_y: Int) {
-        // Do nothing
-    }
 }

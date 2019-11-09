@@ -11,8 +11,7 @@ import java.lang.Exception
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
-    private var grenade: Grenade? = null
-    private var player: Player? = null
+    private val gameObjects = mutableListOf<GameObject>()
 
     private var touched: Boolean = false
     private var touched_x: Int = 0
@@ -40,8 +39,9 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     override fun surfaceCreated(p0: SurfaceHolder?) {
         // game objects
-        grenade = Grenade(BitmapFactory.decodeResource(resources, R.drawable.grenade))
-        player = Player(BitmapFactory.decodeResource(resources, R.drawable.white_circle))
+        gameObjects.add(Grenade(BitmapFactory.decodeResource(resources, R.drawable.grenade)))
+        //gameObjects.add(Grenade(BitmapFactory.decodeResource(resources, R.drawable.grenade)))
+        //player = Player(BitmapFactory.decodeResource(resources, R.drawable.white_circle))
 
         // start game thread
         thread.setRunning(true)
@@ -56,10 +56,11 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
      * Function to update the positions of player and game objects
      */
     fun update() {
-        grenade!!.update()
-
-        if (touched) {
-            player!!.updateTouch(touched_x, touched_y)
+        for (o in gameObjects) {
+            o.update()
+            if (touched and o.touched(touched_x, touched_y)) {
+                o.updateTouch(touched_x, touched_y)
+            }
         }
     }
 
@@ -69,8 +70,9 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
 
-        grenade!!.draw(canvas)
-        player!!.draw(canvas)
+        for (o in gameObjects) {
+            o.draw(canvas)
+        }
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {

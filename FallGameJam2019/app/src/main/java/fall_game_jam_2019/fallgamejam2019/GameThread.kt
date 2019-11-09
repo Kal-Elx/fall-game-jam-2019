@@ -3,14 +3,10 @@ package fall_game_jam_2019.fallgamejam2019
 import android.graphics.Canvas
 import android.view.SurfaceHolder
 
-/**
- * Created by arjun on 26/12/17.
- */
-
 class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView: GameView) : Thread() {
     private var running: Boolean = false
 
-    private val targetFPS = 50 // frames per second, the rate at which you would like to refresh the Canvas
+    private val targetFPS = 100 // frames per second, the rate at which you would like to refresh the Canvas
 
     fun setRunning(isRunning: Boolean) {
         this.running = isRunning
