@@ -12,11 +12,11 @@ class GameWorld(resources: Resources) {
     var earth: Earth = Earth()
     var moon: Moon = Moon()
 
-    fun update(delta_time: Double){
+    fun update(delta_time: Double) {
 
     }
 
     fun draw(canvas: Canvas) {
-        
+
     }
 }
