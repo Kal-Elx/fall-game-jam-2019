@@ -1,6 +1,7 @@
 package fall_game_jam_2019.fallgamejam2019
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.util.AttributeSet
@@ -49,7 +50,6 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     override fun surfaceCreated(p0: SurfaceHolder?) {
         // game objects
         gameObjects.add(Grenade(BitmapFactory.decodeResource(resources, R.drawable.grenade)))
-        //gameObjects.add(Grenade(BitmapFactory.decodeResource(resources, R.drawable.grenade)))
 
         // start game thread
         thread.setRunning(true)

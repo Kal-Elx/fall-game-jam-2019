@@ -33,9 +33,6 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
     init {
         w = image.width
         h = image.height
-
-        x = screenWidth/2
-        y = screenHeight/2
     }
 
     /**
@@ -80,9 +77,10 @@ abstract class GameObject(var image: Bitmap, val mass: Double, var hitBoxType: H
     }
 
     fun onCollision(other: GameObject){
+
         newXVelocity = ((this.mass-other.mass)/ (this.mass + other.mass))* this.xVelocity + ((2*other.mass)/(this.mass+other.mass))*other.xVelocity
         newYVelocity = ((this.mass-other.mass)/ (this.mass + other.mass))* this.yVelocity + ((2*other.mass)/(this.mass+other.mass))*other.yVelocity
-    }
+     }
 
     fun touched(touchX: Int, touchY: Int): Boolean {
         val touched = sqrt(
