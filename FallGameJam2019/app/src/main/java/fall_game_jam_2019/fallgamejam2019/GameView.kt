@@ -41,7 +41,6 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         // game objects
         gameObjects.add(Grenade(BitmapFactory.decodeResource(resources, R.drawable.grenade)))
         //gameObjects.add(Grenade(BitmapFactory.decodeResource(resources, R.drawable.grenade)))
-        //player = Player(BitmapFactory.decodeResource(resources, R.drawable.white_circle))
 
         // start game thread
         thread.setRunning(true)
@@ -60,6 +59,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
             o.update()
             if (touched and o.touched(touched_x, touched_y)) {
                 o.updateTouch(touched_x, touched_y)
+            } else {
+                o.setHeld(false)
             }
         }
     }

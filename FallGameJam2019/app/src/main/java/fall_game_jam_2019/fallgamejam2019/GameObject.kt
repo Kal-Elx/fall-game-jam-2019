@@ -3,6 +3,7 @@ package fall_game_jam_2019.fallgamejam2019
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.widget.Toast
 
 abstract class GameObject(var image: Bitmap, val mass: Double) {
     var x: Int = 0
@@ -10,12 +11,16 @@ abstract class GameObject(var image: Bitmap, val mass: Double) {
     var w: Int = 0
     var h: Int = 0
     val m = mass
+
     protected var xVelocity: Double = 20.0
     protected var yVelocity: Double = 20.0
     protected val screenWidth = Resources.getSystem().displayMetrics.widthPixels
     protected val screenHeight = Resources.getSystem().displayMetrics.heightPixels
 
-    val touchOffset = 100
+    private val touchOffset = 150
+    private var held = false
+    private var holdDiffX = 0
+    private var holdDiffY = 0
 
     init {
         w = image.width
@@ -43,16 +48,26 @@ abstract class GameObject(var image: Bitmap, val mass: Double) {
         y += yVelocity.toInt()
     }
 
-    fun updateTouch(touch_x: Int, touch_y: Int) {
-        x = touch_x - w / 2
-        y = touch_y - h / 2
+    fun updateTouch(touchX: Int, touchY: Int) {
+        if (held) {
+            x = (touchX - w / 2) + holdDiffX
+            y = (touchY - h / 2) + holdDiffY
+        } else {
+            held = true
+            holdDiffX = x - (touchX - w / 2)
+            holdDiffY = y - (touchY - h / 2)
+        }
 
         xVelocity = 0.0
         yVelocity = 0.0
     }
 
-    fun touched(touch_x: Int, touch_y: Int): Boolean {
-        return touch_x >= x-touchOffset && touch_x <= (x+w+touchOffset) && touch_y >= y-touchOffset && touch_y <= (y+h+touchOffset)
+    fun touched(touchX: Int, touchY: Int): Boolean {
+        val touched = touchX >= x-touchOffset && touchX <= (x+w+touchOffset) && touchY >= y-touchOffset && touchY <= (y+h+touchOffset)
+        if (!touched) {
+            held = false
+        }
+        return touched
     }
 
     /**
@@ -69,5 +84,9 @@ abstract class GameObject(var image: Bitmap, val mass: Double) {
     fun applyAirResistance() {
         xVelocity *= 0.99
         yVelocity *= 0.99
+    }
+
+    fun setHeld(b: Boolean) {
+        held = b
     }
 }
