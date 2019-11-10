@@ -91,7 +91,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         canvas.drawBitmap(bitmap_moon, getPixelCoordinate(game_world.moon.x) - ((bitmap_moon.width)/2).toFloat(), getPixelCoordinate(game_world.moon.y) - ((bitmap_moon.height)/2).toFloat(), null)
     }
 
-    private fun getPixelCoordinate (astro_coord: Int): Float {
+    private fun getPixelCoordinate (astro_coord: Double): Float {
         return astro_coord.toFloat() * (500f / 370000000f) + (screenWidth)/2
     }
 
