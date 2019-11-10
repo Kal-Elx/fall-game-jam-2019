@@ -16,11 +16,17 @@ class GameWorld(resources: Resources) {
 
     fun update() {
         affectByGravity(moon, earth)
+        affectByGravity(earth, moon)
         if (asteroid.affectedByGravity) {
             affectByGravity(asteroid, moon)
             affectByGravity(moon, asteroid)
             affectByGravity(asteroid, earth)
+            affectByGravity(earth, asteroid)
         }
+
+        // Move earth
+        earth.x += earth.xVel * deltaTime
+        earth.y += earth.yVel * deltaTime
 
         // Move moon
         moon.x += moon.xVel * deltaTime
