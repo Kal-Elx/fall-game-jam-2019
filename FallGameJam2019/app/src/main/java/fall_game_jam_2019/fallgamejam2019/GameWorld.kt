@@ -11,8 +11,8 @@ class GameWorld(resources: Resources) {
 
     val G: Double = 6.67408 * (10.0.pow(-11))
     val fps = 50
-    val playbackSpeed = 100000
-    val deltaTime = playbackSpeed/fps // Simulated seconds in one sec
+    var playbackSpeed = 100000
+    var deltaTime = playbackSpeed/fps // Simulated seconds in one sec
 
     fun update() {
         // Affect objects by gravity
