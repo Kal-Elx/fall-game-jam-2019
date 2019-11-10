@@ -8,5 +8,5 @@ class Moon : AstronomicalObject{
     override var xVel: Double = 0.0 // m/s
     override var yVel: Double = -1002.0 // m/s
     override val radius: Double = 1737100.0 // m
-    override val mass: Double = 7348 * 10.0.pow(19) // kg
+    override var mass: Double = 7348 * 10.0.pow(19) // kg
 }
