@@ -2,6 +2,7 @@ package fall_game_jam_2019.fallgamejam2019
 
 import android.app.Activity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.Toast
@@ -18,13 +19,21 @@ class GameActivity : Activity() {
         val gameView = findViewById(R.id.game_view) as GameView
         val restartButton = findViewById(R.id.restart_button) as ImageButton
         val settingsButton = findViewById(R.id.settings_button) as ImageButton
+        val pauseView = findViewById(R.id.pause_view) as View
 
         restartButton.setOnClickListener {
             gameView.restart()
         }
 
         settingsButton.setOnClickListener {
-            gameView.onPause()
+            if (pauseView.visibility == View.GONE){
+                gameView.onPause()
+                pauseView.visibility = View.VISIBLE
+            } else{
+                gameView.onUnPause()
+                pauseView.visibility = View.GONE
+            }
+
         }
     }
 }
