@@ -17,6 +17,7 @@ class GameActivity : Activity() {
     var asteroidMassInput: EditText? = null
     var moonXVInput: EditText? = null
     var moonYVInput: EditText? = null
+    var playbackSpeedInput: EditText? = null
     val mass_constant= 100000
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +36,7 @@ class GameActivity : Activity() {
         asteroidMassInput = findViewById(R.id.asteroid_mass) as EditText
         moonXVInput = findViewById(R.id.moon_vx) as EditText
         moonYVInput = findViewById(R.id.moon_vy) as EditText
+        playbackSpeedInput = findViewById(R.id.playbackspeed)
 
         restartButton.setOnClickListener {
             gameView!!.restart()
@@ -58,6 +60,7 @@ class GameActivity : Activity() {
         asteroidMassInput!!.setText((Asteroid.mass/mass_constant).toBigDecimal().toPlainString())
         moonXVInput!!.setText((gameView!!.game_world.moon.xVel).toBigDecimal().toPlainString())
         moonYVInput!!.setText((gameView!!.game_world.moon.yVel).toBigDecimal().toPlainString())
+        playbackSpeedInput!!.setText((gameView!!.game_world.playbackSpeed).toBigDecimal().toPlainString())
     }
 
     fun closeSettings() {
@@ -68,6 +71,8 @@ class GameActivity : Activity() {
         gameView!!.game_world.earth.mass = earthMassInput!!.text.toString().toDouble()
         gameView!!.game_world.moon.xVel = moonXVInput!!.text.toString().toDouble()
         gameView!!.game_world.moon.yVel = moonYVInput!!.text.toString().toDouble()
+        gameView!!.game_world.playbackSpeed = playbackSpeedInput!!.text.toString().toInt()
+        gameView!!.game_world.deltaTime=gameView!!.game_world.playbackSpeed/gameView!!.game_world.fps
     }
 
     override fun onBackPressed() {
