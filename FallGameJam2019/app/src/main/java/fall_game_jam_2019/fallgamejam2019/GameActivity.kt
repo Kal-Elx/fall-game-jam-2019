@@ -6,7 +6,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_game.*
 
 class GameActivity : Activity() {
 
@@ -23,11 +23,11 @@ class GameActivity : Activity() {
 
 
         val pauseView = findViewById(R.id.pause_view) as View
-        val eart_mass_input = findViewById(R.id.earth_mass) as EditText
-        val moon_mass_input = findViewById(R.id.moon_mass) as EditText
-        val asteroid_mass_input = findViewById(R.id.asteroid_mass) as EditText
-        val moon_xv_input = findViewById(R.id.moon_vx) as EditText
-        val moon_yv_input = findViewById(R.id.moon_vy) as EditText
+        val earthMassInput = findViewById(R.id.earth_mass) as EditText
+        val moonMassInput = findViewById(R.id.moon_mass) as EditText
+        val asteroidMassInput = findViewById(R.id.asteroid_mass) as EditText
+        val moonXVInput = findViewById(R.id.moon_vx) as EditText
+        val moonYVInput = findViewById(R.id.moon_vy) as EditText
 
         restartButton.setOnClickListener {
             gameView.restart()
@@ -39,23 +39,27 @@ class GameActivity : Activity() {
                 gameView.onPause()
                 pauseView.visibility = View.VISIBLE
 
-                eart_mass_input.setText((gameView.game_world.earth.mass/mass_constant).toBigDecimal().toPlainString())
-                moon_mass_input.setText((gameView.game_world.moon.mass/mass_constant).toBigDecimal().toPlainString())
-                asteroid_mass_input.setText((Asteroid.mass/mass_constant).toBigDecimal().toPlainString())
-                moon_xv_input.setText((gameView.game_world.moon.xVel).toBigDecimal().toPlainString())
-                moon_yv_input.setText((gameView.game_world.moon.yVel).toBigDecimal().toPlainString())
+                earthMassInput.setText((gameView.game_world.earth.mass/mass_constant).toBigDecimal().toPlainString())
+                moonMassInput.setText((gameView.game_world.moon.mass/mass_constant).toBigDecimal().toPlainString())
+                asteroidMassInput.setText((Asteroid.mass/mass_constant).toBigDecimal().toPlainString())
+                moonXVInput.setText((gameView.game_world.moon.xVel).toBigDecimal().toPlainString())
+                moonYVInput.setText((gameView.game_world.moon.yVel).toBigDecimal().toPlainString())
 
             } else{
                 gameView.onUnPause()
                 pauseView.visibility = View.GONE
-                Asteroid.mass = asteroid_mass_input.text.toString().toDouble()
-                gameView.game_world.moon.mass= moon_mass_input.text.toString().toDouble()
-                gameView.game_world.earth.mass = eart_mass_input.text.toString().toDouble()
-                gameView.game_world.moon.xVel = moon_xv_input.text.toString().toDouble()
-                gameView.game_world.moon.yVel = moon_yv_input.text.toString().toDouble()
+                Asteroid.mass = asteroidMassInput.text.toString().toDouble()
+                gameView.game_world.moon.mass= moonMassInput.text.toString().toDouble()
+                gameView.game_world.earth.mass = earthMassInput.text.toString().toDouble()
+                gameView.game_world.moon.xVel = moonXVInput.text.toString().toDouble()
+                gameView.game_world.moon.yVel = moonYVInput.text.toString().toDouble()
 
             }
-
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
     }
 }
