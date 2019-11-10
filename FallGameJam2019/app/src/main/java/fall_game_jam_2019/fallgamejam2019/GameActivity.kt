@@ -66,9 +66,9 @@ class GameActivity : Activity() {
     fun closeSettings() {
         gameView!!.onUnPause()
         pauseView!!.visibility = View.GONE
-        Asteroid.mass = asteroidMassInput!!.text.toString().toDouble()
-        gameView!!.game_world.moon.mass= moonMassInput!!.text.toString().toDouble()
-        gameView!!.game_world.earth.mass = earthMassInput!!.text.toString().toDouble()
+        Asteroid.mass = asteroidMassInput!!.text.toString().toDouble()*mass_constant
+        gameView!!.game_world.moon.mass= moonMassInput!!.text.toString().toDouble()*mass_constant
+        gameView!!.game_world.earth.mass = earthMassInput!!.text.toString().toDouble()*mass_constant
         gameView!!.game_world.moon.xVel = moonXVInput!!.text.toString().toDouble()
         gameView!!.game_world.moon.yVel = moonYVInput!!.text.toString().toDouble()
         gameView!!.game_world.playbackSpeed = playbackSpeedInput!!.text.toString().toInt()
