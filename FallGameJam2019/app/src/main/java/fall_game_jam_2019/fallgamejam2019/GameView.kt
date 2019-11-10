@@ -21,10 +21,15 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     public var game_world: GameWorld = GameWorld(resources)
     private var aim = Aim()
 
+    // https://opengameart.org/content/earth Created by Justin Nichol
     private var bitmap_earth: Bitmap = Bitmap.createScaledBitmap(
         BitmapFactory.decodeResource(resources, R.drawable.earth_oga), 300, 300, false)
+
+    // https://opengameart.org/content/the-moon
     private var bitmap_moon: Bitmap = Bitmap.createScaledBitmap(
         BitmapFactory.decodeResource(resources, R.drawable.moon_oga), 81, 81, false)
+
+    // https://opengameart.org/content/asteroid-l
     private var bitmap_asteroid: Bitmap = Bitmap.createScaledBitmap(
         BitmapFactory.decodeResource(resources, R.drawable.asteroid_oga), 54, 54, false)
 
