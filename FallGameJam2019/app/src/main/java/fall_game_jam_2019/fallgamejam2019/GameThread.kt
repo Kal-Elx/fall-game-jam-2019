@@ -28,7 +28,7 @@ class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView:
                 // locking the canvas allows us to draw on to it
                 canvas = this.surfaceHolder.lockCanvas()
                 synchronized(surfaceHolder) {
-                    this.gameView.update(((((System.nanoTime() - last_update) / 1000000).toDouble()) / 1000))
+                    this.gameView.update(targetFPS)
                     last_update = System.nanoTime()
                     this.gameView.draw(canvas!!)
                 }
