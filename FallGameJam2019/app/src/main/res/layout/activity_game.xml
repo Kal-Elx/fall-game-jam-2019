@@ -43,26 +43,72 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/game_view"
-            app:layout_constraintTop_toBottomOf="@+id/settings_button"
-            tools:visibility="gone">
+            app:layout_constraintTop_toBottomOf="@+id/settings_button">
 
-        <Button
-                android:id="@+id/button6"
+        <TextView
+                android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Asteroid" />
+                android:text="Earth's mass (100 ton)" />
 
-        <Button
-                android:id="@+id/button7"
+        <EditText
+                android:id="@+id/earth_mass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Moon" />
+                android:ems="10"
+                android:inputType="number" />
 
-        <Button
-                android:id="@+id/button8"
+        <TextView
+                android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Earth" />
+                android:text="Moon's mass (100 ton)" />
+
+        <EditText
+                android:id="@+id/moon_mass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+        <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Asteroid's mass (100 ton)" />
+
+        <EditText
+                android:id="@+id/asteroid_mass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+        <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Moon's  x velocity (m/s)" />
+
+        <EditText
+                android:id="@+id/moon_vx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
+
+        <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Moon's y velocity (m/s)" />
+
+        <EditText
+                android:id="@+id/moon_vy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

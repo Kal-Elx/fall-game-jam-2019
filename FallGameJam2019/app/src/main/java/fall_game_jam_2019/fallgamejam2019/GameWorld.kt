@@ -5,9 +5,9 @@ import kotlin.math.*
 
 class GameWorld(resources: Resources) {
 
-    var asteroid: Asteroid = Asteroid()
     var earth: Earth = Earth()
     var moon: Moon = Moon()
+    val asteroids = mutableListOf<Asteroid>()
 
     val G: Double = 6.67408 * (10.0.pow(-11))
     val fps = 50
@@ -15,9 +15,10 @@ class GameWorld(resources: Resources) {
     val deltaTime = playbackSpeed/fps // Simulated seconds in one sec
 
     fun update() {
+        // Affect objects by gravity
         affectByGravity(moon, earth)
         affectByGravity(earth, moon)
-        if (asteroid.affectedByGravity) {
+        for (asteroid in asteroids) {
             affectByGravity(asteroid, moon)
             affectByGravity(moon, asteroid)
             affectByGravity(asteroid, earth)
@@ -32,9 +33,17 @@ class GameWorld(resources: Resources) {
         moon.x += moon.xVel * deltaTime
         moon.y += moon.yVel * deltaTime
 
-        // Move asteroid
-        asteroid.x += asteroid.xVel * deltaTime
-        asteroid.y += asteroid.yVel * deltaTime
+        // Move asteroids
+        for (asteroid in asteroids) {
+            asteroid.x += asteroid.xVel * deltaTime
+            asteroid.y += asteroid.yVel * deltaTime
+        }
+    }
+
+    fun launchAsteroid(xVel: Int, yVel: Int) {
+        val asteroid = Asteroid()
+        asteroid.launch(xVel, yVel)
+        asteroids.add(asteroid)
     }
 
     fun affectByGravity(target: AstronomicalObject, source: AstronomicalObject) {

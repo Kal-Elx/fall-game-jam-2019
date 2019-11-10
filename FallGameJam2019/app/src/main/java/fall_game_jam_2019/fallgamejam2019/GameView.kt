@@ -18,7 +18,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var touchedY: Int = 0
     private var paused: Boolean = false
 
-    private var game_world: GameWorld = GameWorld(resources)
+    public var game_world: GameWorld = GameWorld(resources)
     private var aim = Aim()
 
     private var bitmap_earth: Bitmap = Bitmap.createScaledBitmap(
@@ -74,7 +74,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
 
-        if (touched && !game_world.asteroid.launched) {
+        if (touched) {
             aim.draw(canvas)
         }
         drawGameWorld(canvas)
@@ -88,8 +88,13 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         // Draw Moon
         canvas.drawBitmap(bitmap_moon, getPixelX(game_world.moon.x) - ((bitmap_moon.width)/2).toFloat(), getPixelY(game_world.moon.y) - ((bitmap_moon.height)/2).toFloat(), null)
 
-        // Draw Asteroid
-        canvas.drawBitmap(bitmap_asteroid, getPixelX(game_world.asteroid.x) - ((bitmap_asteroid.width)/2).toFloat(), getPixelY(game_world.asteroid.y) - ((bitmap_asteroid.height)/2).toFloat(), null)
+        // Draw Asteroids
+        for (asteroid in game_world.asteroids) {
+            canvas.drawBitmap(bitmap_asteroid, getPixelX(asteroid.x) - ((bitmap_asteroid.width)/2).toFloat(), getPixelY(asteroid.y) - ((bitmap_asteroid.height)/2).toFloat(), null)
+        }
+
+        // Draw Aim asteroid
+        canvas.drawBitmap(bitmap_asteroid, screenWidth/2 - ((bitmap_asteroid.width)/2).toFloat(), screenHeight - ((bitmap_asteroid.height)/2).toFloat(), null)
     }
 
     fun restart() {
@@ -116,7 +121,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
             MotionEvent.ACTION_UP -> {
                 touched = false
                 aim.release()
-                game_world.asteroid.launch(aim.resX, aim.resY)
+                game_world.launchAsteroid(aim.resX, aim.resY)
             }
             MotionEvent.ACTION_CANCEL -> {
                 touched = false

@@ -8,7 +8,7 @@ class Asteroid : AstronomicalObject{
     override var y: Double = getAstroY(screenHeight).toDouble() // m from earth´s core TODO
     override var xVel: Double = 0.0 // m/s
     override var yVel: Double = 0.0 // m/s
-    override val mass: Double = 433000.0 // kg
+    override var mass: Double = 433000.0 // kg
     override val radius: Double = 1000000.0
 
     var affectedByGravity = false
