@@ -4,7 +4,6 @@ import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.Path
 import android.graphics.DashPathEffect
 
 
@@ -20,14 +19,22 @@ class Aim {
     var resY = 0
 
     fun draw(canvas: Canvas) {
-        val paint = Paint()
-        paint.setColor(Color.parseColor("#FFFFFF"))
-        paint.setStrokeWidth(10F)
-        paint.setStyle(Paint.Style.STROKE)
-        paint.setPathEffect(DashPathEffect(floatArrayOf(100f, 50f), 0f))
-        paint.setAntiAlias(true)
-        paint.setDither(true)
-        canvas.drawLine(orgX.toFloat(), orgY.toFloat(), x.toFloat(), y.toFloat(), paint)
+        val paint1 = Paint()
+        paint1.setColor(Color.parseColor("#FFFFFF"))
+        paint1.setStrokeWidth(10F)
+        paint1.setStyle(Paint.Style.STROKE)
+        paint1.setPathEffect(DashPathEffect(floatArrayOf(100f, 50f), 0f))
+        paint1.setAntiAlias(true)
+        paint1.setDither(true)
+        canvas.drawLine(orgX.toFloat(), orgY.toFloat(), x.toFloat(), y.toFloat(), paint1)
+
+        val paint2 = Paint()
+        paint1.setColor(Color.parseColor("#FFFFFF"))
+        paint1.setStrokeWidth(20F)
+        paint1.setStyle(Paint.Style.STROKE)
+        paint1.setAntiAlias(true)
+        paint1.setDither(true)
+        canvas.drawCircle(x.toFloat(), y.toFloat(),10.0F, paint1)
     }
 
     fun load() {
