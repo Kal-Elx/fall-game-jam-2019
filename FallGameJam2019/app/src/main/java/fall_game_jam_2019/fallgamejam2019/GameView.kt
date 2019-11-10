@@ -78,11 +78,14 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
      */
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
+        
+        drawGameWorld(canvas)
 
         if (touched) {
             aim.draw(canvas)
         }
-        drawGameWorld(canvas)
+        // Draw Aim asteroid
+        canvas.drawBitmap(bitmap_asteroid, screenWidth/2 - ((bitmap_asteroid.width)/2).toFloat(), screenHeight - ((bitmap_asteroid.height)/2).toFloat(), null)
     }
 
     private fun drawGameWorld(canvas: Canvas) {
@@ -97,9 +100,6 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         for (asteroid in game_world.asteroids) {
             canvas.drawBitmap(bitmap_asteroid, getPixelX(asteroid.x) - ((bitmap_asteroid.width)/2).toFloat(), getPixelY(asteroid.y) - ((bitmap_asteroid.height)/2).toFloat(), null)
         }
-
-        // Draw Aim asteroid
-        canvas.drawBitmap(bitmap_asteroid, screenWidth/2 - ((bitmap_asteroid.width)/2).toFloat(), screenHeight - ((bitmap_asteroid.height)/2).toFloat(), null)
     }
 
     fun restart() {
