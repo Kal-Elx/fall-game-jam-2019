@@ -8,8 +8,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import android.widget.ImageButton
-import android.widget.Toast
 import java.lang.Exception
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
@@ -27,7 +25,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         BitmapFactory.decodeResource(resources, R.drawable.earth2), 300, 300, false)
     private var bitmap_moon: Bitmap = Bitmap.createScaledBitmap(
         BitmapFactory.decodeResource(resources, R.drawable.moon), 81, 81, false)
-    private var bitmap_rocket: Bitmap = Bitmap.createScaledBitmap(
+    private var bitmap_asteroid: Bitmap = Bitmap.createScaledBitmap(
         BitmapFactory.decodeResource(resources, R.drawable.asteroid), 162, 162, false)
 
     init {
@@ -90,7 +88,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         canvas.drawBitmap(bitmap_moon, getPixelX(game_world.moon.x) - ((bitmap_moon.width)/2).toFloat(), getPixelY(game_world.moon.y) - ((bitmap_moon.height)/2).toFloat(), null)
 
         // Draw Asteroid
-        canvas.drawBitmap(bitmap_rocket, getPixelX(game_world.asteroid.x) - ((bitmap_rocket.width)/2).toFloat(), getPixelY(game_world.asteroid.y) - ((bitmap_rocket.height)/2).toFloat(), null)
+        canvas.drawBitmap(bitmap_asteroid, getPixelX(game_world.asteroid.x) - ((bitmap_asteroid.width)/2).toFloat(), getPixelY(game_world.asteroid.y) - ((bitmap_asteroid.height)/2).toFloat(), null)
     }
 
     fun restart() {
