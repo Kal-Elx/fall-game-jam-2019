@@ -11,11 +11,15 @@ class Asteroid {
     val mass: Double = 433000.0 // kg
 
     var affectedByGravity = false
+    var launched = false
     val launchPowerFactor = 0.00001
 
     fun launch(xVel: Int, yVel: Int) {
-        this.xVel = xVel.toDouble()*(launchPowerFactor/scale)
-        this.yVel = yVel.toDouble()*(launchPowerFactor/scale)
-        affectedByGravity = true
+        if (!launched) {
+            this.xVel = xVel.toDouble() * (launchPowerFactor / scale)
+            this.yVel = yVel.toDouble() * (launchPowerFactor / scale)
+            affectedByGravity = true
+            launched = true
+        }
     }
 }

@@ -1,7 +1,6 @@
 package fall_game_jam_2019.fallgamejam2019
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -76,13 +75,13 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
 
-        if (touched) {
+        if (touched && !game_world.asteroid.launched) {
             aim.draw(canvas)
         }
-        draw_game_world(canvas)
+        drawGameWorld(canvas)
     }
 
-    private fun draw_game_world(canvas: Canvas) {
+    private fun drawGameWorld(canvas: Canvas) {
         // Draw Earth
         canvas.drawBitmap(bitmap_earth, ((screenWidth-bitmap_earth.width)/2).toFloat(), ((screenWidth-bitmap_earth.width)/2).toFloat(), null)
 
