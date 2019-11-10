@@ -82,7 +82,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     private fun drawGameWorld(canvas: Canvas) {
         // Draw Earth
-        canvas.drawBitmap(bitmap_earth, ((screenWidth-bitmap_earth.width)/2).toFloat(), ((screenWidth-bitmap_earth.width)/2).toFloat(), null)
+        //canvas.drawBitmap(bitmap_earth, ((screenWidth-bitmap_earth.width)/2).toFloat(), ((screenWidth-bitmap_earth.width)/2).toFloat(), null)
+        canvas.drawBitmap(bitmap_earth, getPixelX(game_world.earth.x) - ((bitmap_earth.width)/2).toFloat(), getPixelY(game_world.earth.y) - ((bitmap_earth.height)/2).toFloat(), null)
 
         // Draw Moon
         canvas.drawBitmap(bitmap_moon, getPixelX(game_world.moon.x) - ((bitmap_moon.width)/2).toFloat(), getPixelY(game_world.moon.y) - ((bitmap_moon.height)/2).toFloat(), null)
