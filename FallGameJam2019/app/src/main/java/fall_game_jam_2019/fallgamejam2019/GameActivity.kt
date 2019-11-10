@@ -53,7 +53,6 @@ class GameActivity : Activity() {
                 gameView.game_world.earth.mass = eart_mass_input.text.toString().toDouble()
                 gameView.game_world.moon.xVel = moon_xv_input.text.toString().toDouble()
                 gameView.game_world.moon.yVel = moon_yv_input.text.toString().toDouble()
-
             }
 
         }
