@@ -129,5 +129,10 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     fun onPause(){
         paused = true
+
+    }
+
+    fun onUnPause(){
+        paused =false
     }
 }
