@@ -12,7 +12,7 @@ class GameWorld(resources: Resources) {
     var moon: Moon = Moon()
 
     val G: Double = 6.67408 * 10.0.pow(-11)
-    val playbackSpeed = 100000 // Simulated seconds in one sec
+    val playbackSpeed = 1000 // Simulated seconds in one sec
 
     fun update(fps: Int) {
         // Move moodWS

@@ -11,7 +11,7 @@ fun distance(x1: Double,y1:Double,x2: Double,y2: Double): Double{
 
 val screenWidth = Resources.getSystem().displayMetrics.widthPixels
 val screenHeight = Resources.getSystem().displayMetrics.heightPixels
-val scale = (500f / 370000000f)
+val scale = (500f / 384402000.0f)
 
 fun getPixelX (astro_x: Double): Float {
     return astro_x.toFloat() * scale + (screenWidth/2)

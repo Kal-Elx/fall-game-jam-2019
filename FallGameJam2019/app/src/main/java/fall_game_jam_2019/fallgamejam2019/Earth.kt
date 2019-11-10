@@ -7,5 +7,5 @@ class Earth {
     val x: Double = 0.0 // m from earth´s core
     val y: Double = 0.0 // m from earth´s core
     val radius: Double = 6371000.0 // m
-    val mass: Double = 5972.0 * 10.0.pow(21) // kg
+    val mass: Double = 5.972 * 10.0.pow(24) // kg
 }
