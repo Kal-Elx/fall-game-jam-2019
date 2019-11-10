@@ -16,21 +16,21 @@
 
     <ImageButton
             android:id="@+id/restart_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            android:src="@android:drawable/ic_menu_revert"
+            android:layout_width="200px"
+            android:layout_height="200px"
             android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_revert"
+            android:text="Button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
             android:id="@+id/settings_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            android:src="@android:drawable/ic_menu_preferences"
+            android:layout_width="200px"
+            android:layout_height="200px"
             android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_preferences"
+            android:text="Button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
