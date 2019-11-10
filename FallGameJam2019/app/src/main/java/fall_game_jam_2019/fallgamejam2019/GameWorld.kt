@@ -1,9 +1,7 @@
 package fall_game_jam_2019.fallgamejam2019
 
 import android.content.res.Resources
-import kotlin.math.cos
-import kotlin.math.pow
-import kotlin.math.sin
+import kotlin.math.*
 
 class GameWorld(resources: Resources) {
 
@@ -11,17 +9,28 @@ class GameWorld(resources: Resources) {
     var earth: Earth = Earth()
     var moon: Moon = Moon()
 
+    init {
+        moon.yVel *= 10
+    }
+
     val G: Double = 6.67408 * 10.0.pow(-11)
-    val playbackSpeed = 100000 // Simulated seconds in one sec
+    val playbackSpeed = 100 // Simulated seconds in one sec
 
     fun update(fps: Int) {
-        // Move moodWS
-        moon.x += moon.xVel*(playbackSpeed/fps)
-        moon.y += moon.yVel*(playbackSpeed/fps)
+        // Calculate the moon´s acceleration towards the earth.
+        val Fg = -G*(earth.mass*moon.mass/moon.radius.pow(2))
+        val v = atan2(moon.y, moon.x)
+        val Fgx = Fg*cos(v)
+        val Fgy = Fg*sin(v)
+        val Ax = Fgx/moon.mass
+        val Ay = Fgy/moon.mass
 
-        val earth_g = get_gravity(moon.mass, earth.mass, moon.x.pow(2) + moon.y.pow(2))
-        //val earth_g_x = cos()
-        //val earth_g_y = sin()
+        moon.xVel += Ax*(playbackSpeed/fps)
+        moon.yVel += Ay*(playbackSpeed/fps)
+
+        // Move moon
+        moon.x += moon.xVel*playbackSpeed // delta time looks weird. Use FPS instead?
+        moon.y += moon.yVel*playbackSpeed
 
         // TODO: Gravity between earth and moon
         // TODO: Gravity between moon and asteroid

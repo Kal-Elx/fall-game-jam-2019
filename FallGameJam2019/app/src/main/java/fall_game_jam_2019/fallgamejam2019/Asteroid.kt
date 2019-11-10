@@ -3,13 +3,14 @@ package fall_game_jam_2019.fallgamejam2019
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-class Asteroid {
-    var x: Double = getAstroX(screenWidth/2).toDouble() // m from earth´s core
-    var y: Double = getAstroY(screenHeight).toDouble() // m from earth´s core TODO
-    var xVel: Double = 0.0 // m/s
-    var yVel: Double = 0.0 // m/s
-    val mass: Double = 433000.0 // kg
-
+class Asteroid : AstronomicalObject{
+    override var x: Double = getAstroX(screenWidth/2).toDouble() // m from earth´s core
+    override var y: Double = getAstroY(screenHeight).toDouble() // m from earth´s core TODO
+    override var xVel: Double = 0.0 // m/s
+    override var yVel: Double = 0.0 // m/s
+    override val mass: Double = 433000.0 // kg
+    override val radius: Double = 1000000.0
+    
     var affectedByGravity = false
     var launched = false
     val launchPowerFactor = 0.00001
