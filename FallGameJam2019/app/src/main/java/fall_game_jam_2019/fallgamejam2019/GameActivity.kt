@@ -19,7 +19,9 @@ class GameActivity : Activity() {
         val restartButton = findViewById(R.id.restart_button) as ImageButton
         val settingsButton = findViewById(R.id.settings_button) as ImageButton
 
-
+        restartButton.setOnClickListener {
+            gameView.restart()
+        }
 
         settingsButton.setOnClickListener {
             Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()

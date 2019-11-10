@@ -68,7 +68,6 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
             }
             game_world?.update(fps)
         }
-
     }
 
     /**
@@ -92,6 +91,11 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
         // Draw Asteroid
         canvas.drawBitmap(bitmap_rocket, getPixelX(game_world.asteroid.x) - ((bitmap_rocket.width)/2).toFloat(), getPixelY(game_world.asteroid.y) - ((bitmap_rocket.height)/2).toFloat(), null)
+    }
+
+    fun restart() {
+        game_world = GameWorld(resources)
+        aim.load()
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {

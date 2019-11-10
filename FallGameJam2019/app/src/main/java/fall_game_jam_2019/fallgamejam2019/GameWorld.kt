@@ -12,7 +12,7 @@ class GameWorld(resources: Resources) {
     val G: Double = 6.67408 * 10.0.pow(-11)
     val playbackSpeed = 1000 // Simulated seconds in one sec
 
-    fun update(delta_time: Double) {
+    fun update(fps: Int) {
         // Move moon
         moon.x += moon.xVel*playbackSpeed // delta time looks weird. Use FPS instead?
         moon.y += moon.yVel*playbackSpeed
