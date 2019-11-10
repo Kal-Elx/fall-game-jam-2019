@@ -6,13 +6,10 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.util.AttributeSet
-import android.view.Gravity
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import java.lang.Double.POSITIVE_INFINITY
 import java.lang.Exception
-import java.lang.Math.sqrt
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
@@ -28,10 +25,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         BitmapFactory.decodeResource(resources, R.drawable.earth2), 300, 300, false)
     private var bitmap_moon: Bitmap = Bitmap.createScaledBitmap(
         BitmapFactory.decodeResource(resources, R.drawable.moon), 81, 81, false)
-    //private var bitmap_rocket: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.moon)
-
-    protected val screenWidth = Resources.getSystem().displayMetrics.widthPixels
-    protected val screenHeight = Resources.getSystem().displayMetrics.heightPixels
+    private var bitmap_rocket: Bitmap = Bitmap.createScaledBitmap(
+        BitmapFactory.decodeResource(resources, R.drawable.asteroid), 162, 162, false)
 
     init {
         holder.addCallback(this)
@@ -58,8 +53,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         thread.start()
     }
 
-    override fun surfaceChanged(p0: SurfaceHolder?, p1: Int, p2: Int, p3: Int) {
-    }
+    override fun surfaceChanged(p0: SurfaceHolder?, p1: Int, p2: Int, p3: Int) {}
 
     /**
      * Function to update the positions of player and game objects
@@ -77,10 +71,11 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
      */
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
-        draw_game_world(canvas)
+
         if (touched) {
             aim.draw(canvas)
         }
+        draw_game_world(canvas)
     }
 
     private fun draw_game_world(canvas: Canvas) {
@@ -88,11 +83,10 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         canvas.drawBitmap(bitmap_earth, ((screenWidth-bitmap_earth.width)/2).toFloat(), ((screenWidth-bitmap_earth.width)/2).toFloat(), null)
 
         // Draw Moon
-        canvas.drawBitmap(bitmap_moon, getPixelCoordinate(game_world.moon.x) - ((bitmap_moon.width)/2).toFloat(), getPixelCoordinate(game_world.moon.y) - ((bitmap_moon.height)/2).toFloat(), null)
-    }
+        canvas.drawBitmap(bitmap_moon, getPixelX(game_world.moon.x) - ((bitmap_moon.width)/2).toFloat(), getPixelY(game_world.moon.y) - ((bitmap_moon.height)/2).toFloat(), null)
 
-    private fun getPixelCoordinate (astro_coord: Double): Float {
-        return astro_coord.toFloat() * (500f / 370000000f) + (screenWidth)/2
+        // Draw Asteroid
+        canvas.drawBitmap(bitmap_rocket, getPixelX(game_world.asteroid.x) - ((bitmap_rocket.width)/2).toFloat(), getPixelY(game_world.asteroid.y) - ((bitmap_rocket.height)/2).toFloat(), null)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -114,6 +108,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
             MotionEvent.ACTION_UP -> {
                 touched = false
                 aim.release()
+                game_world.asteroid.launch(aim.resX, aim.resY)
             }
             MotionEvent.ACTION_CANCEL -> {
                 touched = false

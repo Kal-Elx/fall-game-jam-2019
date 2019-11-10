@@ -9,12 +9,12 @@ import android.graphics.DashPathEffect
 
 
 class Aim {
-    var x = 0
-    var y = 0
     protected val screenWidth = Resources.getSystem().displayMetrics.widthPixels
     protected val screenHeight = Resources.getSystem().displayMetrics.heightPixels
     val orgX = screenWidth/2
     val orgY = screenHeight
+    var x = orgX
+    var y = orgY
 
     var resX = 0
     var resY = 0
@@ -36,7 +36,7 @@ class Aim {
     }
 
     fun release() {
-        resX = orgX - x
+        resX = x - orgX
         resY = orgY - y
     }
 }
