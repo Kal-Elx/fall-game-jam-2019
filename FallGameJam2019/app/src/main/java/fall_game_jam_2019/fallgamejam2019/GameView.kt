@@ -26,7 +26,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var bitmap_moon: Bitmap = Bitmap.createScaledBitmap(
         BitmapFactory.decodeResource(resources, R.drawable.moon), 81, 81, false)
     private var bitmap_asteroid: Bitmap = Bitmap.createScaledBitmap(
-        BitmapFactory.decodeResource(resources, R.drawable.asteroid), 162, 162, false)
+        BitmapFactory.decodeResource(resources, R.drawable.asteroid), 54, 54, false)
 
     init {
         holder.addCallback(this)
