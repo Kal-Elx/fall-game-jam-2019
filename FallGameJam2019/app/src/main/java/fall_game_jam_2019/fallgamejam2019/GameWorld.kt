@@ -5,46 +5,54 @@ import kotlin.math.*
 
 class GameWorld(resources: Resources) {
 
-    var asteroid: Asteroid = Asteroid()
     var earth: Earth = Earth()
     var moon: Moon = Moon()
+    val asteroids = mutableListOf<Asteroid>()
 
-    init {
-        moon.yVel *= 10
-    }
+    val G: Double = 6.67408 * (10.0.pow(-11))
+    val fps = 50
+    val playbackSpeed = 100000
+    val deltaTime = playbackSpeed/fps // Simulated seconds in one sec
 
-    val G: Double = 6.67408 * 10.0.pow(-11)
-    val playbackSpeed = 100 // Simulated seconds in one sec
+    fun update() {
+        // Affect objects by gravity
+        affectByGravity(moon, earth)
+        affectByGravity(earth, moon)
+        for (asteroid in asteroids) {
+            affectByGravity(asteroid, moon)
+            affectByGravity(moon, asteroid)
+            affectByGravity(asteroid, earth)
+            affectByGravity(earth, asteroid)
+        }
 
-    fun update(fps: Int) {
-        // Calculate the moon´s acceleration towards the earth.
-        val Fg = -G*(earth.mass*moon.mass/moon.radius.pow(2))
-        val v = atan2(moon.y, moon.x)
-        val Fgx = Fg*cos(v)
-        val Fgy = Fg*sin(v)
-        val Ax = Fgx/moon.mass
-        val Ay = Fgy/moon.mass
-
-        moon.xVel += Ax*(playbackSpeed/fps)
-        moon.yVel += Ay*(playbackSpeed/fps)
+        // Move earth
+        earth.x += earth.xVel * deltaTime
+        earth.y += earth.yVel * deltaTime
 
         // Move moon
-        moon.x += moon.xVel*playbackSpeed // delta time looks weird. Use FPS instead?
-        moon.y += moon.yVel*playbackSpeed
+        moon.x += moon.xVel * deltaTime
+        moon.y += moon.yVel * deltaTime
 
-        // TODO: Gravity between earth and moon
-        // TODO: Gravity between moon and asteroid
-
-        // Move asteroid
-        asteroid.x += asteroid.xVel*(playbackSpeed/fps)
-        asteroid.y += asteroid.yVel*(playbackSpeed/fps)
-
-        // TODO: Gravity between earth and asteroid
-        // TODO: Gravity between asteroid and moon
+        // Move asteroids
+        for (asteroid in asteroids) {
+            asteroid.x += asteroid.xVel * deltaTime
+            asteroid.y += asteroid.yVel * deltaTime
+        }
     }
 
+    fun launchAsteroid(xVel: Int, yVel: Int) {
+        val asteroid = Asteroid()
+        asteroid.launch(xVel, yVel)
+        asteroids.add(asteroid)
+    }
 
-    fun get_gravity(m1: Double, m2: Double, r2: Double): Double{
-        return G * (m1* m2)/ r2
+    fun affectByGravity(target: AstronomicalObject, source: AstronomicalObject) {
+        val a = G*(source.mass / distance(target.x, target.y, source.x, source.y).pow(2))
+        val theta = atan2(source.y-target.y, source.x-target.x)
+        val ax = a * cos(theta)
+        val ay = a * sin(theta)
+
+        target.xVel += ax * (deltaTime)
+        target.yVel += ay * (deltaTime)
     }
 }
