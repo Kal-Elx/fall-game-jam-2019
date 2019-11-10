@@ -24,6 +24,12 @@ class GameWorld(resources: Resources) {
             affectByGravity(asteroid, earth)
             affectByGravity(earth, asteroid)
         }
+        for (i in 0..asteroids.size-1) {
+            for (j in i+1..asteroids.size-1) {
+                affectByGravity(asteroids[i], asteroids[j])
+                affectByGravity(asteroids[j], asteroids[i])
+            }
+        }
 
         // Move earth
         earth.x += earth.xVel * deltaTime
