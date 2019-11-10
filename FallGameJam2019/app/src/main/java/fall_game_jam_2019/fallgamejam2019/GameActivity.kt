@@ -61,8 +61,6 @@ class GameActivity : Activity() {
             builder.setNeutralButton("Close", null)
             dialog = builder.create()
             dialog.show()
-
-
         }
 
         settingsButton.setOnClickListener {
@@ -72,6 +70,13 @@ class GameActivity : Activity() {
                 closeSettings()
             }
         }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        intent = Intent(this, GameActivity::class.java)
+        startActivity(intent)
+        this.finish()
     }
 
     fun openSettings() {
