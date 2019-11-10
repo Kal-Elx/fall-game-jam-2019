@@ -16,9 +16,14 @@ class GameWorld(resources: Resources) {
 
     fun update() {
         affectByGravity(moon, earth)
+        if (asteroid.affectedByGravity) {
+            affectByGravity(asteroid, moon)
+            affectByGravity(moon, asteroid)
+            affectByGravity(asteroid, earth)
+        }
 
         // Move moon
-        moon.x += moon.xVel * deltaTime // delta time looks weird. Use FPS instead?
+        moon.x += moon.xVel * deltaTime
         moon.y += moon.yVel * deltaTime
 
         // Move asteroid
