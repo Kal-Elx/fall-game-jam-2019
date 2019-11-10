@@ -10,7 +10,7 @@ class Asteroid : AstronomicalObject{
     override var yVel: Double = 0.0 // m/s
     override val mass: Double = 433000.0 // kg
     override val radius: Double = 1000000.0
-    
+
     var affectedByGravity = false
     var launched = false
     val launchPowerFactor = 0.00001

@@ -58,13 +58,13 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     /**
      * Function to update the positions of player and game objects
      */
-    fun update(fps :Int) {
+    fun update() {
         if (!paused) {
             if (touched) {
                 aim.x = touchedX
                 aim.y = touchedY
             }
-            game_world?.update(fps)
+            game_world?.update()
         }
     }
 
