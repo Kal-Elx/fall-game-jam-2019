@@ -124,4 +124,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         }
         return true
     }
+
+    fun onPause(){
+        paused = true
+    }
 }
