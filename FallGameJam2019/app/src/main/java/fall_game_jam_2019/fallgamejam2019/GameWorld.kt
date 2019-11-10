@@ -38,8 +38,8 @@ class GameWorld(resources: Resources) {
     }
 
     fun affectByGravity(target: AstronomicalObject, source: AstronomicalObject) {
-        val a = -G*(source.mass / distance(target.x, target.y, source.x, source.y).pow(2))
-        val theta = atan2(target.y, target.x)
+        val a = G*(source.mass / distance(target.x, target.y, source.x, source.y).pow(2))
+        val theta = atan2(source.y-target.y, source.x-target.x)
         val ax = a * cos(theta)
         val ay = a * sin(theta)
 
