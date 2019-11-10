@@ -36,10 +36,15 @@ class GameWorld(resources: Resources) {
         // TODO: Gravity between moon and asteroid
 
         // Move asteroid
-        asteroid.x += asteroid.xVel*playbackSpeed
-        asteroid.y += asteroid.yVel*playbackSpeed
+        asteroid.x += asteroid.xVel*(playbackSpeed/fps)
+        asteroid.y += asteroid.yVel*(playbackSpeed/fps)
 
         // TODO: Gravity between earth and asteroid
         // TODO: Gravity between asteroid and moon
+    }
+
+
+    fun get_gravity(m1: Double, m2: Double, r2: Double): Double{
+        return G * (m1* m2)/ r2
     }
 }

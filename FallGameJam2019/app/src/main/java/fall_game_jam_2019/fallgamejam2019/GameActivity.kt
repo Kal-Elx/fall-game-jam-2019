@@ -24,7 +24,7 @@ class GameActivity : Activity() {
         }
 
         settingsButton.setOnClickListener {
-            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+            gameView.onPause()
         }
     }
 }
