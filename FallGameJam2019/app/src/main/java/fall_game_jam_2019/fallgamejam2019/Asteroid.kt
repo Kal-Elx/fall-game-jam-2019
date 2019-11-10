@@ -14,7 +14,7 @@ class Asteroid : AstronomicalObject{
 
     var affectedByGravity = false
     var launched = false
-    val launchPowerFactor = 0.00001
+    val launchPowerFactor = 0.000005
 
     companion object {
         var mass = 433000.0

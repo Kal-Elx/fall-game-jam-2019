@@ -22,11 +22,11 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var aim = Aim()
 
     private var bitmap_earth: Bitmap = Bitmap.createScaledBitmap(
-        BitmapFactory.decodeResource(resources, R.drawable.earth2), 300, 300, false)
+        BitmapFactory.decodeResource(resources, R.drawable.earth_oga), 300, 300, false)
     private var bitmap_moon: Bitmap = Bitmap.createScaledBitmap(
-        BitmapFactory.decodeResource(resources, R.drawable.moon), 81, 81, false)
+        BitmapFactory.decodeResource(resources, R.drawable.moon_oga), 81, 81, false)
     private var bitmap_asteroid: Bitmap = Bitmap.createScaledBitmap(
-        BitmapFactory.decodeResource(resources, R.drawable.asteroid), 54, 54, false)
+        BitmapFactory.decodeResource(resources, R.drawable.asteroid_oga), 54, 54, false)
 
     init {
         holder.addCallback(this)
