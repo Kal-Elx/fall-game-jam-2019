@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import kotlinx.android.synthetic.main.activity_game.*
@@ -22,6 +23,8 @@ class GameActivity : Activity() {
     lateinit var moonXVInput: EditText
     lateinit var moonYVInput: EditText
     lateinit var playbackSpeedInput: EditText
+    lateinit var credits_button: Button
+
     val mass_constant= 100000
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,9 +44,24 @@ class GameActivity : Activity() {
         moonXVInput = findViewById(R.id.moon_vx) as EditText
         moonYVInput = findViewById(R.id.moon_vy) as EditText
         playbackSpeedInput = findViewById(R.id.playbackspeed)
+        credits_button = findViewById(R.id.credits_button)
 
         restartButton.setOnClickListener {
             gameView.restart()
+        }
+        credits_button.setOnClickListener{
+            lateinit var dialog: AlertDialog
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Credits")
+            builder.setMessage("'Earth' by Justin Nichol licensed CC-BY 3.0: https://opengameart.org/content/earth \n\n" +
+                    "'The Moon' by JosipKladaric licensed CC-BY 3.0: https://opengameart.org/content/the-moon  \n\n" +
+                    "'Asteroid l' by Cmdr G licensed CC-BY 3.0: https://opengameart.org/content/asteroid-l")
+
+            builder.setNeutralButton("Close", null)
+            dialog = builder.create()
+            dialog.show()
+
+
         }
 
         settingsButton.setOnClickListener {
@@ -77,6 +95,9 @@ class GameActivity : Activity() {
         gameView.game_world.moon.yVel = moonYVInput.text.toString().toDouble()
         gameView.game_world.playbackSpeed = playbackSpeedInput.text.toString().toInt()
         gameView.game_world.deltaTime=gameView.game_world.playbackSpeed/gameView.game_world.fps
+
+        val inputManager: InputMethodManager =getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(pauseView.windowToken, InputMethodManager.SHOW_FORCED)
     }
 
     override fun onBackPressed() {
