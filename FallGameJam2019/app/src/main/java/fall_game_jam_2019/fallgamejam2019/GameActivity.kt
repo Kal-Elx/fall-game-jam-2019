@@ -41,14 +41,14 @@ class GameActivity : Activity() {
 
                 eart_mass_input.setText((gameView.game_world.earth.mass/mass_constant).toBigDecimal().toPlainString())
                 moon_mass_input.setText((gameView.game_world.moon.mass/mass_constant).toBigDecimal().toPlainString())
-                asteroid_mass_input.setText((gameView.game_world.asteroid.mass/mass_constant).toBigDecimal().toPlainString())
+                asteroid_mass_input.setText((Asteroid.mass/mass_constant).toBigDecimal().toPlainString())
                 moon_xv_input.setText((gameView.game_world.moon.xVel).toBigDecimal().toPlainString())
                 moon_yv_input.setText((gameView.game_world.moon.yVel).toBigDecimal().toPlainString())
 
             } else{
                 gameView.onUnPause()
                 pauseView.visibility = View.GONE
-                gameView.game_world.asteroid.mass = asteroid_mass_input.text.toString().toDouble()
+                Asteroid.mass = asteroid_mass_input.text.toString().toDouble()
                 gameView.game_world.moon.mass= moon_mass_input.text.toString().toDouble()
                 gameView.game_world.earth.mass = eart_mass_input.text.toString().toDouble()
                 gameView.game_world.moon.xVel = moon_xv_input.text.toString().toDouble()
