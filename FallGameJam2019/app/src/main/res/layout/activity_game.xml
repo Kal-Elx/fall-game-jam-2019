@@ -10,7 +10,9 @@
     <fall_game_jam_2019.fallgamejam2019.GameView
             android:id="@+id/game_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="-16dp"
+            tools:layout_editor_absoluteY="0dp" />
 
     <ImageButton
             android:id="@+id/restart_button"
@@ -31,5 +33,36 @@
             android:background="@android:color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+            android:id="@+id/pause_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/game_view"
+            app:layout_constraintTop_toBottomOf="@+id/settings_button"
+            tools:visibility="gone">
+
+        <Button
+                android:id="@+id/button6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Asteroid" />
+
+        <Button
+                android:id="@+id/button7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Moon" />
+
+        <Button
+                android:id="@+id/button8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Earth" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
