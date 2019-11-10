@@ -18,7 +18,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var touchedY: Int = 0
     private var paused: Boolean = false
 
-    private var game_world: GameWorld = GameWorld(resources)
+    public var game_world: GameWorld = GameWorld(resources)
     private var aim = Aim()
 
     private var bitmap_earth: Bitmap = Bitmap.createScaledBitmap(
