@@ -1,9 +1,11 @@
 package fall_game_jam_2019.fallgamejam2019
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
 import kotlinx.android.synthetic.main.activity_game.*
